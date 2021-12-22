@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/gamestyle.css' />
+    <style>
+         :root {
+            --board-dark: <%=color.board.dark %>;
+            --board-light: <%=color.board.light %>;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="board">
+    </div>
+
+    <template id="template-even-row">
+        <div class="square even-row"></div>
+    </template>
+    <template id="template-odd-row">
+        <div class="square odd-row"></div>
+    </template>
+
+    <script src="/js/game.js"></script>
+</body>

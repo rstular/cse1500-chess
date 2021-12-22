@@ -1,0 +1,23 @@
+#board {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 640px;
+    height: 640px;
+    border: 1px solid black;
+}
+
+.square {
+    width: 80px;
+    height: 80px;
+}
+
+.even-row:nth-of-type(even),
+.odd-row:nth-of-type(odd) {
+    background-color: var(--board-dark);
+}
+
+.even-row:nth-of-type(odd),
+.odd-row:nth-of-type(even) {
+    background-color: var(--board-light);
+}
