@@ -10,6 +10,9 @@
 .square {
     width: 80px;
     height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .even-row:nth-of-type(even),

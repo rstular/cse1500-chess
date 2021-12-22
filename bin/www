@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('chess-game:server');
 var http = require('http');
+var websocket = require('ws');
 
 /**
  * Get port from environment and store in Express.
@@ -23,6 +24,19 @@ app.set('host', host);
  */
 
 var server = http.createServer(app);
+var ws_server = new websocket.Server({ server });
+
+const CONNECTED_SOCKETS = {};
+let connectionId = 0;
+
+ws_server.on("connection", (ws) => {
+    const connecion = ws;
+    connecion.id = connectionId++;
+
+    CONNECTED_SOCKETS[connecion.id] = connecion;
+
+    console.log(`New connection: ${connecion.id}`);
+});
 
 /**
  * Listen on provided port, on all network interfaces.

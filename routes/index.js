@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Best chess ever' });
 });
 
 router.get('/play', function(req, res, next) {
@@ -11,8 +11,8 @@ router.get('/play', function(req, res, next) {
         title: 'Playing the chess game',
         color: {
             board: {
-                dark: "black",
-                light: "white"
+                dark: "#103275",
+                light: "#7aa7ff"
             }
         }
     });
