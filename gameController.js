@@ -7,7 +7,7 @@ class ChessGame {
         this.gameId = gameId;
         this.playerA = null;
         this.playerB = null;
-        this.inviteCode = utils.generateRandomString(6);
+        this.inviteCode = utils.generateRandomString(6); // To be used for implementing invite-only games
         this.state = protodef.GameState.WAITING_FOR_PLAYERS;
         this.board = new chess.ChessBoard();
     }
@@ -18,7 +18,7 @@ class ChessGame {
         } else if (this.playerB === null) {
             this.playerB = player;
         } else {
-            throw new Error('Game is full');
+            throw new Error("Game is full");
         }
     }
 }

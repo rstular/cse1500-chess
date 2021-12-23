@@ -1,5 +1,38 @@
-const ChessPiece = {
-    NONE: 0,
+class ChessPiece {
+    constructor(type, color) {
+        if (typeof type !== "undefined") {
+            this.type = type;
+        }
+        if (typeof color !== "undefined") {
+            this.color = color;
+        }
+    }
+    getType() {
+        return this.type;
+    }
+    getColor() {
+        return this.color;
+    }
+    setType(type) {
+        this.type = type;
+    }
+    setColor(color) {
+        this.color = color;
+    }
+
+    /**
+     * 
+     * @returns {object} JSON-serializable representation of the piece 
+     */
+    toJSON() {
+        return {
+            type: this.type || null,
+            color: this.color || null
+        };
+    }
+}
+
+const ChessPieceType = {
     PAWN: 1,
     ROOK: 2,
     KNIGHT: 3,
@@ -9,93 +42,99 @@ const ChessPiece = {
 };
 
 class ChessBoard {
-    constructor() {
-        this.board = [];
-        this.board[0] = [
-            ChessPiece.ROOK,
-            ChessPiece.KNIGHT,
-            ChessPiece.BISHOP,
-            ChessPiece.QUEEN,
-            ChessPiece.KING,
-            ChessPiece.BISHOP,
-            ChessPiece.KNIGHT,
-            ChessPiece.ROOK,
-        ];
-        this.board[1] = [
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-        ];
-        this.board[2] = [
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-        ];
-        this.board[3] = [
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-        ];
-        this.board[4] = [
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-        ];
-        this.board[5] = [
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-            ChessPiece.NONE,
-        ];
-        this.board[6] = [
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-            ChessPiece.PAWN,
-        ];
-        this.board[7] = [
-            ChessPiece.ROOK,
-            ChessPiece.KNIGHT,
-            ChessPiece.BISHOP,
-            ChessPiece.QUEEN,
-            ChessPiece.KING,
-            ChessPiece.BISHOP,
-            ChessPiece.KNIGHT,
-            ChessPiece.ROOK,
-        ];
-        this.turn = 0;
+    constructor(board_state) {
+        if (typeof board_state !== "undefined") {
+            this.board = board_state;
+        } else {
+            this.board = [
+                [
+                    new ChessPiece(ChessPieceType.ROOK, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.KNIGHT, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.BISHOP, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.QUEEN, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.KING, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.BISHOP, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.KNIGHT, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.ROOK, ChessPieceColor.WHITE)
+                ],
+                [
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceIColor.WHITE),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.WHITE),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.WHITE)
+                ],
+                [
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece()
+                ],
+                [
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece()
+                ],
+                [
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece()
+                ],
+                [
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece(),
+                    new ChessPiece()
+                ],
+                [
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.PAWN, ChessPieceColor.BLACK)
+                ],
+                [
+                    new ChessPiece(ChessPieceType.ROOK, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.KNIGHT, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.BISHOP, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.QUEEN, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.KING, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.BISHOP, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.KNIGHT, ChessPieceColor.BLACK),
+                    new ChessPiece(ChessPieceType.ROOK, ChessPieceColor.BLACK)
+                ]
+            ];
+        }
     }
 }
 
+
 module.exports = {
     ChessPiece,
+    ChessPieceType,
     ChessBoard,
 }
