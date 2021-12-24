@@ -4,10 +4,12 @@
  * Module dependencies.
  */
 
-var app = require("../app");
-var debug = require("debug")("chess-game:server");
-var http = require("http");
-var websocket = require("ws");
+const app = require("../app");
+const logger = require("../logger");
+const http = require("http");
+const websocket = require("ws");
+const gameController = require("../gameController");
+const communication = require("../communication");
 
 /**
  * Get port from environment and store in Express.
@@ -26,16 +28,19 @@ app.set("host", host);
 var server = http.createServer(app);
 var ws_server = new websocket.Server({ server });
 
-const CONNECTED_SOCKETS = {};
 let connectionId = 0;
-
 ws_server.on("connection", (ws) => {
-    const connecion = ws;
-    connecion.id = connectionId++;
+    const conn = ws;
+    conn.id = connectionId++;
 
-    CONNECTED_SOCKETS[connecion.id] = connecion;
+    gameController.ConnectionManager.addConnection(conn);
 
-    console.log(`New connection: ${connecion.id}`);
+    logger.verbose(`New connection: ${conn.id}`);
+
+    conn.on("message", (message) => {
+        logger.debug(`Message received: ${message}`);
+        communication.handleMessage(conn, message);
+    });
 });
 
 /**
@@ -82,11 +87,11 @@ function onError(error) {
     // handle specific listen errors with friendly messages
     switch (error.code) {
         case "EACCES":
-            console.error(bind + " requires elevated privileges");
+            logger.error(bind + " requires elevated privileges");
             process.exit(1);
             break;
         case "EADDRINUSE":
-            console.error(bind + " is already in use");
+            logger.error(bind + " is already in use");
             process.exit(1);
             break;
         default:
@@ -103,5 +108,5 @@ function onListening() {
     var bind = typeof addr === "string" ?
         "pipe " + addr :
         "port " + addr.port;
-    debug("Listening on " + bind);
+    logger.info("Listening on " + bind);
 }

@@ -1,4 +1,10 @@
 class ChessPiece {
+
+    /**
+     * Creates a new ChessPiece
+     * @param {ChessPieceType} type type of the piece
+     * @param {ChessPieceColor} color color of the piece
+     */
     constructor(type, color) {
         if (typeof type !== "undefined") {
             this.type = type;
@@ -7,15 +13,35 @@ class ChessPiece {
             this.color = color;
         }
     }
+
+    /**
+     * Returns the type of the piece in question
+     * @returns {ChessPieceType} type of the piece
+     */
     getType() {
         return this.type;
     }
+
+    /**
+     * Returns the color of the piece in question
+     * @returns {ChessPieceColor} color of the piece
+     */
     getColor() {
         return this.color;
     }
+
+    /**
+     * Sets the type of the piece in question
+     * @param {ChessPieceType} type type of the piece
+     */
     setType(type) {
         this.type = type;
     }
+
+    /**
+     * Sets the color of the piece in question
+     * @param {ChessPieceColor} color color of the piece
+     */
     setColor(color) {
         this.color = color;
     }
@@ -26,8 +52,8 @@ class ChessPiece {
      */
     toJSON() {
         return {
-            type: this.type || null,
-            color: this.color || null
+            type: this.type ?? null,
+            color: this.color ?? null
         };
     }
 }
@@ -41,8 +67,13 @@ const ChessPieceType = {
     KING: 6,
 };
 
+const ChessPieceColor = {
+    WHITE: 1,
+    BLACK: 2,
+};
+
 class ChessBoard {
-    constructor(board_state) {
+    constructor(board) {
         if (typeof board_state !== "undefined") {
             this.board = board_state;
         } else {

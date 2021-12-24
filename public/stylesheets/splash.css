@@ -5,8 +5,40 @@ html {
     font-family: Roboto, sans-serif;
 }
 
+nav {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.nav-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.nav-element {
+    float: left;
+}
+
+.nav-element.nav-element-right {
+    float: right;
+}
+
+.nav-element>div {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
 .hero-image {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/images/splash/hero-bg.webp");
+    z-index: 1;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/splash/hero-bg.webp");
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -29,21 +61,30 @@ h1 {
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    font-weight: 100;
 }
 
 .button {
     border-radius: 4px;
-    background-color: #f4511e;
     border: none;
+    background-color: #f4511e;
     color: #FFFFFF;
     text-align: center;
     font-size: 20px;
     padding: 20px;
-    width: 200px;
+    margin: 5px;
+    width: 260px;
     transition: all 0.5s;
     cursor: pointer;
-    margin: 5px;
+}
+
+.button.button-primary {
+    background-color: #103275;
+}
+
+.button.button-secondary {
+    background-color: #7aa7ff;
 }
 
 .button span {
@@ -69,4 +110,40 @@ h2 {
 .button:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+.input-container {
+    width: 100%;
+    margin-bottom: 10px;
+    min-height: 48px;
+}
+
+.text-input {
+    box-sizing: border-box;
+    outline: none;
+    height: 48px !important;
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #bbb;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    border-radius: 4px;
+    font-size: 16px;
+    height: 24px;
+    text-align: center;
+    transition: 0.5s;
+}
+
+.text-input:focus {
+    transition: 0.5s;
+    border-width: 2px;
+    border-color: white;
+}
+
+.text-input::placeholder {
+    color: #bbb;
+    opacity: 1;
 }

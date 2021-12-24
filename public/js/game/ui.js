@@ -6,7 +6,6 @@ function pieceDragEnd(e) {
     this.style.opacity = '1';
 }
 
-
 const constructHtmlBoard = () => {
     const BOARD_ELEMENT = document.getElementById("board");
 
@@ -15,11 +14,7 @@ const constructHtmlBoard = () => {
 
     for (let i = 0; i < 8; ++i) {
         for (let j = 0; j < 8; ++j) {
-            if (i % 2) {
-                BOARD_ELEMENT.appendChild(template_odd.content.cloneNode(true));
-            } else {
-                BOARD_ELEMENT.appendChild(template_even.content.cloneNode(true));
-            }
+            BOARD_ELEMENT.appendChild(i % 2 ? template_odd.content.cloneNode(true) : template_even.content.cloneNode(true));
         }
     }
 
@@ -31,9 +26,6 @@ const constructHtmlBoard = () => {
     // }
 }
 
-const initializeInterface = () => {
+export const initializeInterface = () => {
     constructHtmlBoard();
-    createDrags();
 }
-
-window.addEventListener("DOMContentLoaded", constructHtmlBoard);
