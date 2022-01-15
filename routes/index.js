@@ -1,13 +1,14 @@
 var express = require("express");
 var router = express.Router();
-var gameController = require("../gameController");
+var gameController = require("../game/controller");
+var protodef = require("../communication/protodef");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
     res.render("index", {
         title: "Best chess ever",
         players_online: Object.keys(gameController.ConnectionManager.connections).length,
-        active_games: gameController.games.active.length,
+        active_games: gameController.games.filter(game => game.state === protodef.GameState.PLAYING).length,
     });
 });
 

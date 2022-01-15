@@ -1,8 +1,7 @@
-const games = {
-    initializing: [],
-    active: [],
-    finished: []
-}
+var gameId = 0;
+var connectionId = 0;
+
+const games = [];
 
 // Dictonary of all connections (ID: connection)
 const ConnectionManager = {
@@ -15,4 +14,4 @@ const ConnectionManager = {
     }
 }
 
-module.exports = { games, ConnectionManager };
+module.exports = { games, ConnectionManager, gameId, connectionId };

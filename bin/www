@@ -8,8 +8,7 @@ const app = require("../app");
 const logger = require("../logger");
 const http = require("http");
 const websocket = require("ws");
-const gameController = require("../gameController");
-const communication = require("../communication");
+const communication = require("../communication/communication");
 
 /**
  * Get port from environment and store in Express.
@@ -28,20 +27,7 @@ app.set("host", host);
 var server = http.createServer(app);
 var ws_server = new websocket.Server({ server });
 
-let connectionId = 0;
-ws_server.on("connection", (ws) => {
-    const conn = ws;
-    conn.id = connectionId++;
-
-    gameController.ConnectionManager.addConnection(conn);
-
-    logger.verbose(`New connection: ${conn.id}`);
-
-    conn.on("message", (message) => {
-        logger.debug(`Message received: ${message}`);
-        communication.handleMessage(conn, message);
-    });
-});
+ws_server.on("connection", communication.handleConnection);
 
 /**
  * Listen on provided port, on all network interfaces.
