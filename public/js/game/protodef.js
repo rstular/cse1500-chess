@@ -18,15 +18,15 @@ export const Messages = {
 };
 
 export const ChessColor = {
-    WHITE: 0,
-    BLACK: 1,
+    WHITE: "w",
+    BLACK: "b",
 }
 
 export const ChessPieceType = {
-    PAWN: 1,
-    ROOK: 2,
-    KNIGHT: 3,
-    BISHOP: 4,
-    QUEEN: 5,
-    KING: 6,
+    PAWN: "p",
+    ROOK: "r",
+    KNIGHT: "n",
+    BISHOP: "b",
+    QUEEN: "q",
+    KING: "k",
 };
