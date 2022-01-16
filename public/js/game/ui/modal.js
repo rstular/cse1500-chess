@@ -4,7 +4,9 @@ function setContent(title, text) {
 }
 
 export function showModal() {
-    document.getElementById("main-modal").style.display = "block";
+    const MODAL = document.getElementById("main-modal");
+    MODAL.classList.add("shown");
+    MODAL.classList.remove("hiding");
 }
 
 export function showModalWithContent(title, text) {
@@ -13,16 +15,7 @@ export function showModalWithContent(title, text) {
 }
 
 export function initializeModal() {
-    window.onclick = (evt) => {
-        if (evt.target.classList.contains("modal")) {
-            evt.target.style.display = "none";
-        }
-    };
-
-    const closeButtonList = document.getElementsByClassName("modal-close");
-    for (const closeButton of closeButtonList) {
-        closeButton.onclick = (evt) => {
-            evt.target.parentElement.parentElement.style.display = "none";
-        };
-    }
+    document.getElementById("main-modal").addEventListener("click", () => {
+        document.getElementById("main-modal").classList.add("hiding");
+    });
 }
