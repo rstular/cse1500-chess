@@ -22,13 +22,19 @@ const Messages = {
     MOVE_PIECE: 6,
     SET_COLOR: 7,
     SET_STATE: 8,
+    RESIGN: 9,
+};
+
+const ChessMoveType = {
+    REGULAR: 0,
+    MONEY_REMOVE: 1,
 };
 
 const ChessColor = {
     WHITE: "w",
     BLACK: "b",
     NONE: "n",
-}
+};
 
 const ChessPieceType = {
     PAWN: "p",
@@ -39,4 +45,11 @@ const ChessPieceType = {
     KING: "k",
 };
 
-module.exports = { GameState, Messages, ChessColor, ChessPieceType, GameAbortedReason };
+module.exports = {
+    GameState,
+    Messages,
+    ChessColor,
+    ChessPieceType,
+    GameAbortedReason,
+    ChessMoveType,
+};

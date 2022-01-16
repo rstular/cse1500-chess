@@ -6,8 +6,26 @@ export function updateOpponentNickname(nickname) {
     document.getElementById("opponent-nickname").innerText = nickname;
 }
 
+function disableGameButtons() {
+    document.querySelectorAll(".game-button").forEach((button) => {
+        button.disabled = true;
+    });
+}
+
+function enableGameButtons() {
+    document.querySelectorAll(".game-button").forEach((button) => {
+        button.disabled = false;
+    });
+}
+
 export function updateGameState(state) {
     document.getElementById("game-status-text").innerText = StateMap[state];
+
+    if (state === GameState.PLAYING) {
+        enableGameButtons();
+    } else {
+        disableGameButtons();
+    }
 
     const STATUS_CONTAINER = document.getElementById("game-status");
     STATUS_CONTAINER.className = "";

@@ -4,10 +4,12 @@ const logger = require("../logger");
 const handlers = require("./handlers/handlers");
 
 function sendMessage(messageType, payload) {
-    this.send(JSON.stringify({
-        message: messageType,
-        data: payload
-    }));
+    this.send(
+        JSON.stringify({
+            message: messageType,
+            data: payload,
+        })
+    );
 }
 
 function handleConnection(ws) {
@@ -52,11 +54,12 @@ function handleMessage(socket, message) {
         case Messages.MOVE_PIECE:
             handlers.movePieceHandler(socket, parsedData.data);
             break;
+        case Messages.RESIGN:
+            handlers.resignHandler(socket, parsedData.data);
+            break;
         default:
             logger.error("Unknown message");
     }
 }
-
-
 
 module.exports = { handleMessage, handleConnection };

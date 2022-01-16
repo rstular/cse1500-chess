@@ -12,6 +12,7 @@ import {
 export function handleSetState({ state, stateInfo }) {
     gameInfo.state = state;
     updateGameState(state);
+
     if (state === GameState.WAITING_FOR_PLAYERS) {
     } else if (state === GameState.PLAYING) {
         updateOpponentNickname(stateInfo.opponentNickname);

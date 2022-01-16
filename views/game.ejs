@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/stylesheets/game/modal.css" />
     <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto"
+        href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons"
     />
 
     <style>
@@ -29,9 +29,17 @@
             <div class="info-container">
                 <div id="opponent-info">
                     <p>
-                        Opponent nickname:
+                        Opponent:
                         <span id="opponent-nickname">N/A</span>
                     </p>
+                </div>
+                <div class="button-group">
+                    <button class="game-button" id="button-p2w" title="Buy an advantage over your opponent" disabled>
+                        <span class="material-icons">paid</span>
+                    </button>
+                    <button class="game-button" id="button-resign" title="Resign the game" disabled>
+                        <span class="material-icons">flag</span>
+                    </button>
                 </div>
                 <div id="move-list-container">
                     <h3>Move list</h3>
@@ -77,4 +85,6 @@
     </template>
 
     <script src="/js/game/main.js" type="module"></script>
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AQW7-4J6tGdAA7VhEyAUPKccYoBzWUKubpLh0tQ1nov6Fp6G7kUjss32UoQ6ZRW25BEyJh5Wk0Xw1Zk1&currency=USD"></script>
 </body>

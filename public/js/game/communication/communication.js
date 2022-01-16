@@ -9,7 +9,7 @@ import { handleSetState } from "/js/game/communication/handlers/setState.js";
 export var socket = new WebSocket(WEBSOCKET_URL);
 
 export function initializeSocket() {
-    socket.sendMessage = (messageType, payload) => {
+    socket.sendMessage = (messageType, payload = {}) => {
         console.debug("Sending message", messageType, payload);
         socket.send(
             JSON.stringify({

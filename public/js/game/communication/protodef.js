@@ -22,13 +22,19 @@ export const Messages = {
     MOVE_PIECE: 6,
     SET_COLOR: 7,
     SET_STATE: 8,
+    RESIGN: 9,
+};
+
+export const ChessMoveType = {
+    REGULAR: 0,
+    MONEY_REMOVE: 1,
 };
 
 export const ChessColor = {
     WHITE: "w",
     BLACK: "b",
     NONE: "n",
-}
+};
 
 export const ChessPieceType = {
     PAWN: "p",

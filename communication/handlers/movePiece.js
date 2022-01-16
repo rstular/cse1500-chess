@@ -6,6 +6,10 @@ const protodef = require("../../communication/protodef");
 function handleMovePiece(socket, data) {
     logger.debug(`Updating board: ${data}`);
     const game = GameManager.getGame(socket.id);
+    if (game === undefined) {
+        logger.error(`Game not found for socket ${socket.id}`);
+        return;
+    }
 
     if (game.state !== protodef.GameState.PLAYING) {
         logger.debug(`Game ${game.gameId} is not in PLAYING state`);
