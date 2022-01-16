@@ -1,4 +1,4 @@
-import { ChessColor, ChessPieceType, Messages } from "/js/game/protodef.js";
+import { ChessColor, ChessPieceType, Messages, GameState } from "/js/game/protodef.js";
 import { gameInfo } from "/js/game/chessController.js";
 import { sounds } from "/js/game/audio.js";
 import { socket } from "/js/game/communication/communication.js";
@@ -38,7 +38,7 @@ function pieceDragEnd(e) {
     this.style.opacity = "1";
 }
 
-function playMoveSound(move_flags) {
+export function playMoveSound(move_flags) {
     if (gameInfo.board.in_checkmate()) {
         sounds.checkmate.play();
     } else if (gameInfo.board.in_stalemate()) {
@@ -62,7 +62,7 @@ function squarePieceDrop(e) {
     // Prevent opening a link or image when dragging
     e.preventDefault();
     // Check if the target id DIV (not an IMG, we are bubbling up here)
-    if (e.currentTarget.tagName.toLowerCase() === "div") {
+    if (e.currentTarget.tagName.toLowerCase() === "div" && gameInfo.state !== GameState.PLAYING) {
         // If so, stop propagation of the event
         e.stopPropagation();
         // Get DataTransfer payload
@@ -99,6 +99,20 @@ function squarePieceDrop(e) {
 
         playMoveSound(moveWithInfo.flags);
         e.currentTarget.replaceChildren(SOURCE_ELEMENT);
+
+        if (gameInfo.board.game_over()) {
+            if (gameInfo.board.in_checkmate()) {
+                showModalWithContent("Checkmate", "Checkmate!");
+            } else if (gameInfo.board.in_stalemate()) {
+                showModalWithContent("Stalemate", "Stalemate!");
+            } else if (gameInfo.board.insufficient_material()) {
+                showModalWithContent("Draw", "Draw!");
+            } else if (gameInfo.board.in_threefold_repetition()) {
+                showModalWithContent("Draw", "Draw!");
+            } else if (gameInfo.board.in_draw()) {
+                showModalWithContent("Draw", "Draw!");
+            }
+        }
     }
 }
 

@@ -1,18 +1,26 @@
 const logger = require("../../logger");
 const { Messages } = require("../protodef");
+const { GameManager } = require("../../game/controller");
+const protodef = require("../../communication/protodef");
 
 function handleMovePiece(socket, data) {
     logger.debug(`Updating board: ${data}`);
-    const move_info = socket.game.board.move(data);
+    const game = GameManager.getGame(socket.id);
+    const move_info = game.board.move(data);
     if (move_info === null) {
         logger.error("Invalid move");
         // XXX: Sould end game here
         return;
     }
-    if (socket.game.playerWhite == socket) {
-        socket.game.playerBlack.sendMessage(Messages.MOVE_PIECE, data);
+
+    if (game.board.game_over()) {
+        game.state = protodef.GameState.FINISHED;
+    }
+
+    if (game.playerWhite == socket) {
+        game.playerBlack.sendMessage(Messages.MOVE_PIECE, move_info);
     } else {
-        socket.game.playerWhite.sendMessage(Messages.MOVE_PIECE, data);
+        game.playerWhite.sendMessage(Messages.MOVE_PIECE, move_info);
     }
 }
 

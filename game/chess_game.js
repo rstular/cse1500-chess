@@ -2,6 +2,7 @@ const utils = require("../utils");
 const protodef = require("../communication/protodef");
 const logger = require("../logger");
 const { Chess } = require("../lib/chess");
+const { GameManager } = require("../game/controller");
 
 class ChessGame {
     constructor(gameId) {
@@ -17,11 +18,11 @@ class ChessGame {
     joinPlayer(player) {
         if (this.playerWhite === null) {
             this.playerWhite = player;
-            player.game = this;
+            GameManager.setGame(player.id, this);
             logger.debug(`Player ${player.nickname} joined game ${this.gameId} as player A`);
         } else if (this.playerBlack === null) {
             this.playerBlack = player;
-            player.game = this;
+            GameManager.setGame(player.id, this);
             logger.debug(`Player ${player.nickname} joined game ${this.gameId} as player B`);
         } else {
             logger.debug(`Player ${player.nickname} tried to join game ${this.gameId} but it was full`);

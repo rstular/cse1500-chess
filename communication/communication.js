@@ -1,4 +1,4 @@
-const gameController = require("../game/controller");
+const { ConnectionManager } = require("../game/controller");
 const { Messages } = require("./protodef");
 const logger = require("../logger");
 const handlers = require("./handlers/handlers");
@@ -12,7 +12,7 @@ function sendMessage(messageType, payload) {
 
 function handleConnection(ws) {
     const conn = ws;
-    conn.id = gameController.connectionId++;
+    conn.id = ConnectionManager.ids++;
     conn.sendMessage = sendMessage;
 
     logger.verbose(`New connection: ${conn.id}`);
@@ -24,7 +24,7 @@ function handleConnection(ws) {
         logger.verbose(`Connection closed: ${conn.id}`);
     });
 
-    gameController.ConnectionManager.addConnection(conn);
+    ConnectionManager.addConnection(conn);
 }
 
 function handleMessage(socket, message) {
