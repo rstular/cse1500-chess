@@ -7,6 +7,7 @@ import { gameInfo } from "/js/game/chessController.js";
 import {
     GameState,
     GameAbortedReason,
+    ChessColor,
 } from "/js/game/communication/protodef.js";
 
 export function handleSetState({ state, stateInfo }) {
@@ -45,5 +46,15 @@ export function handleSetState({ state, stateInfo }) {
                 console.error("Unknown game aborted reason:", stateInfo.reason);
                 break;
         }
+    } else if (state === GameState.WON_WHITE) {
+        showModalWithContent(
+            "Game over",
+            gameInfo.playerColor === ChessColor.WHITE ? "You won!" : "You lost!"
+        );
+    } else if (state === GameState.WON_BLACK) {
+        showModalWithContent(
+            "Game over",
+            gameInfo.playerColor === ChessColor.BLACK ? "You won!" : "You lost!"
+        );
     }
 }

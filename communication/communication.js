@@ -27,6 +27,7 @@ function handleConnection(ws) {
         if (game) {
             game.abort(GameAbortedReason.PLAYER_DISCONNECTED, ChessColor.NONE);
         }
+        game.removePlayer(conn);
         delete ConnectionManager.connections[conn.id];
         delete GameManager.connectionGameMap[conn.id];
         logger.verbose(`Connection closed: ${conn.id}`);

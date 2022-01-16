@@ -57,6 +57,14 @@ class ChessGame {
         return this.state;
     }
 
+    removePlayer(player) {
+        if (player === this.playerWhite) {
+            this.playerWhite = null;
+        } else if (player === this.playerBlack) {
+            this.playerBlack = null;
+        }
+    }
+
     start() {
         if (this.state !== protodef.GameState.PLAYING) {
             throw new Error("Game is not in PLAYING state");
