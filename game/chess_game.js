@@ -17,9 +17,11 @@ class ChessGame {
     joinPlayer(player) {
         if (this.playerWhite === null) {
             this.playerWhite = player;
+            player.game = this;
             logger.debug(`Player ${player.nickname} joined game ${this.gameId} as player A`);
         } else if (this.playerBlack === null) {
             this.playerBlack = player;
+            player.game = this;
             logger.debug(`Player ${player.nickname} joined game ${this.gameId} as player B`);
         } else {
             logger.debug(`Player ${player.nickname} tried to join game ${this.gameId} but it was full`);

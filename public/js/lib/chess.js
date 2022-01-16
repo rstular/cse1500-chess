@@ -1831,7 +1831,7 @@ export var Chess = function (fen) {
             // allow the user to specify the sloppy move parser to work around over
             // disambiguation bugs in Fritz and Chessbase
             var sloppy =
-                typeof options !== 'undefined' && 'sloppy' in options
+                typeof options === 'object' && 'sloppy' in options
                     ? options.sloppy
                     : false
 

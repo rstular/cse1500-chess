@@ -43,6 +43,9 @@ function handleMessage(socket, message) {
         case Messages.JOIN_GAME:
             handlers.joinGameHandler(socket, parsedData.data);
             break;
+        case Messages.MOVE_PIECE:
+            handlers.movePieceHandler(socket, parsedData.data);
+            break;
         default:
             logger.error("Unknown message");
     }

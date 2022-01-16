@@ -3,8 +3,9 @@ import { Messages } from "/js/game/protodef.js";
 
 import { handleBoardUpdate } from "/js/game/communication/handlers/boardUpdate.js";
 import { handleSetColor } from "/js/game/communication/handlers/setColor.js";
+import { handleMovePiece } from "/js/game/communication/handlers/movePiece.js";
 
-var socket = new WebSocket(WEBSOCKET_URL);
+export var socket = new WebSocket(WEBSOCKET_URL);
 
 export function initializeSocket() {
     socket.sendMessage = (messageType, payload) => {
@@ -37,10 +38,11 @@ export function initializeSocket() {
             case Messages.SET_COLOR:
                 handleSetColor(message.data);
                 break;
+            case Messages.MOVE_PIECE:
+                handleMovePiece(message.data);
+                break;
             default:
                 console.error("Unknown message type", message.message);
         }
     });
 }
-
-export const sendMessage = socket.sendMessage;
