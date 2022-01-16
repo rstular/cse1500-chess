@@ -1,5 +1,5 @@
-const { ConnectionManager } = require("../game/controller");
-const { Messages } = require("./protodef");
+const { ConnectionManager, GameManager } = require("../game/controller");
+const { Messages, GameAbortedReason, ChessColor } = require("./protodef");
 const logger = require("../logger");
 const handlers = require("./handlers/handlers");
 
@@ -12,7 +12,7 @@ function sendMessage(messageType, payload) {
 
 function handleConnection(ws) {
     const conn = ws;
-    conn.id = ConnectionManager.ids++;
+    conn.id = ConnectionManager.id++;
     conn.sendMessage = sendMessage;
 
     logger.verbose(`New connection: ${conn.id}`);
@@ -21,6 +21,12 @@ function handleConnection(ws) {
         handleMessage(conn, message);
     });
     conn.on("close", () => {
+        let game = GameManager.getGame(conn.id);
+        if (game) {
+            game.abort(GameAbortedReason.PLAYER_DISCONNECTED, ChessColor.NONE);
+        }
+        delete ConnectionManager.connections[conn.id];
+        delete GameManager.connectionGameMap[conn.id];
         logger.verbose(`Connection closed: ${conn.id}`);
     });
 

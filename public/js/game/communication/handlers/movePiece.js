@@ -1,6 +1,6 @@
 import { gameInfo } from "/js/game/chessController.js";
-import { updateBoard, playMoveSound } from "/js/game/ui.js";
-import { showModalWithContent } from "/js/game/modal.js";
+import { updateBoard, playMoveSound } from "/js/game/ui/board.js";
+import { showModalWithContent } from "/js/game/ui/modal.js";
 
 export function handleMovePiece(move_object) {
     console.debug("Updating board:", move_object);

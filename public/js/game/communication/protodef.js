@@ -1,10 +1,15 @@
 export const GameState = {
-    WAITING_FOR_PLAYERS: 0b00000000,
-    PLAYING: 0b00000001,
-    FINISHED: 0b00000010,
-    WON_PLAYER_1: 0b00000100,
-    WON_PLAYER_2: 0b00000101,
-    DRAW: 0b00000110,
+    WAITING_FOR_PLAYERS: 0,
+    PLAYING: 1,
+    WON_WHITE: 2,
+    WON_BLACK: 3,
+    DRAW: 4,
+    ABORTED: 5,
+};
+
+export const GameAbortedReason = {
+    PLAYER_DISCONNECTED: 0,
+    PLAYER_CHEATING: 1,
 };
 
 export const Messages = {
@@ -16,11 +21,13 @@ export const Messages = {
     JOIN_GAME: 5,
     MOVE_PIECE: 6,
     SET_COLOR: 7,
+    SET_STATE: 8,
 };
 
 export const ChessColor = {
     WHITE: "w",
     BLACK: "b",
+    NONE: "n",
 }
 
 export const ChessPieceType = {

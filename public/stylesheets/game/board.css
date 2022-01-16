@@ -1,0 +1,26 @@
+#board {
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: repeat(8, 80px);
+    grid-template-rows: repeat(8, 80px);
+    grid-auto-flow: row;
+    border: 2px solid #000;
+}
+
+.even-row:nth-of-type(even),
+.odd-row:nth-of-type(odd) {
+    background-color: var(--board-dark);
+}
+
+.even-row:nth-of-type(odd),
+.odd-row:nth-of-type(even) {
+    background-color: var(--board-light);
+}
+
+.square {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

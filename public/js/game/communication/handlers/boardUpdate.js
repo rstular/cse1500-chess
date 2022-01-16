@@ -1,4 +1,4 @@
-import { updateBoard } from "/js/game/ui.js";
+import { updateBoard } from "/js/game/ui/board.js";
 import { gameInfo } from "/js/game/chessController.js";
 
 export function handleBoardUpdate({ board }) {

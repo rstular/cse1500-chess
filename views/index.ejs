@@ -1,51 +1,61 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/stylesheets/splash.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons"
+        />
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="/stylesheets/splash.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons">
-</head>
+    <body>
+        <nav>
+            <ul class="nav-container">
+                <li class="nav-element">
+                    <div>
+                        <p>
+                            <%= players_online %> players currently online, <%=
+                            active_games %> games in progress.
+                        </p>
+                    </div>
+                    >
+                </li>
+                <li class="nav-element nav-element-right">
+                    <div>
+                        <p>About</p>
+                    </div>
+                </li>
+            </ul>
+        </nav>
 
-<body>
-    <nav>
-        <ul class="nav-container">
-            <li class="nav-element">
-                <div>
-                    <p>
-                        <%= players_online %> players currently online,
-                            <%= active_games %> games in progress.
-                    </p>
-                </div>>
-            </li>
-            <li class="nav-element nav-element-right">
-                <div>
-                    <p>About</p>
+        <div class="hero-image">
+            <div class="hero-content">
+                <h1>Pay-to-win Chess</h1>
+                <h2>
+                    The <b>most thrilling</b> game of chess you'll
+                    <b>ever</b> play
+                </h2>
+                <hr />
+                <div class="input-container">
+                    <input
+                        id="nickname-input"
+                        class="text-input"
+                        type="text"
+                        placeholder="Enter your nickname"
+                        maxlength="32"
+                    />
                 </div>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="hero-image">
-        <div class="hero-content">
-            <h1>Pay-to-win Chess</h1>
-            <h2>The <b>most thrilling</b> game of chess you'll <b>ever</b> play</h2>
-            <hr />
-            <div class="input-container">
-                <input id="nickname-input" class="text-input" type="text" placeholder="Enter your nickname"
-                    maxlength="32">
+                <button id="join-game-button" class="button button-primary">
+                    <span>Join a game</span>
+                </button>
+                <!-- <button class="button button-secondary"><span>Host a private game</span></button> -->
             </div>
-            <button id="join-game-button" class="button button-primary"><span>Join a game</span></button>
-            <!-- <button class="button button-secondary"><span>Host a private game</span></button> -->
         </div>
-    </div>
 
-    <script src="/js/splash.js"></script>
-</body>
-
+        <script src="/js/splash.js"></script>
+    </body>
 </html>

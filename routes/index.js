@@ -8,7 +8,9 @@ router.get("/", function (req, res, next) {
     res.render("index", {
         title: "Best chess ever",
         players_online: Object.keys(ConnectionManager.connections).length,
-        active_games: GameManager.games.filter(game => game.state === protodef.GameState.PLAYING).length,
+        active_games: GameManager.games.filter(
+            (game) => game.state === protodef.GameState.PLAYING
+        ).length,
     });
 });
 
@@ -18,9 +20,9 @@ router.get("/play", function (req, res, next) {
         color: {
             board: {
                 dark: "#3b3b3b",
-                light: "#e6e6e6"
-            }
-        }
+                light: "#e6e6e6",
+            },
+        },
     });
 });
 

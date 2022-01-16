@@ -1,4 +1,4 @@
-const { createLogger, format, transports } = require('winston');
+const { createLogger, format, transports } = require("winston");
 const { combine, timestamp, label, printf } = format;
 
 const logFormat = printf(({ level, message, label, timestamp }) => {
@@ -16,8 +16,8 @@ const logger = createLogger({
     transports: [
         new transports.Console({
             level: "debug",
-        })
-    ]
+        }),
+    ],
 });
 
 module.exports = logger;

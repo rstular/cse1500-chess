@@ -1,0 +1,65 @@
+#game-info {
+    height: 640px;
+    width: 320px;
+    background-color: var(--board-dark);
+    border: 2px solid #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+#game-status {
+    margin: 0;
+    width: 100%;
+    min-height: 5em;
+    background-color: #444;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-status.playing {
+    background-color: rgb(17, 104, 0);
+    color: white;
+}
+
+#game-status.waiting-for-players {
+    background-color: rgb(99, 19, 153);
+    color: white;
+}
+
+#game-status.aborted {
+    background-color: rgb(124, 0, 0);
+    color: white;
+}
+
+#game-status.won {
+    background-color: rgb(174, 255, 98);
+    color: black;
+}
+
+#game-status.lost {
+    background-color: rgb(255, 85, 85);
+    color: black;
+}
+
+#game-status.draw {
+    background-color: rgb(202, 202, 202);
+    color: black;
+}
+
+#opponent-info > p {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 1.2em;
+    text-align: center;
+}
