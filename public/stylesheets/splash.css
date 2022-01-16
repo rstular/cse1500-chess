@@ -44,6 +44,8 @@ nav {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    transition: margin-left .5s;
+    padding: 16px;
 }
 
 .hero-content {
@@ -146,4 +148,35 @@ h2 {
 .text-input::placeholder {
     color: #bbb;
     opacity: 1;
+}
+
+.sidebar-left {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: 0.5s;
+    background-image: linear-gradient(#153A31, #587B41);
+    counter-reset: player;
+    color: white;
+    border-right: 2px solid;
+}
+
+
+.player::before {
+    counter-increment: player;
+    content: counter(player) ". "
+}
+
+.sidebar-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    font-weight: bold;
+}
+.sidebar-title::after {
+    content: "Player(s) online:";
 }

@@ -7,7 +7,7 @@ var protodef = require("../communication/protodef");
 router.get("/", function (req, res, next) {
     res.render("index", {
         title: "Best chess ever",
-        players_online: Object.keys(ConnectionManager.connections).length,
+        players: ConnectionManager.getPlayerList(),
         active_games: GameManager.games.filter(
             (game) => game.state === protodef.GameState.PLAYING
         ).length,

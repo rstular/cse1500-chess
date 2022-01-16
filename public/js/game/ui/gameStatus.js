@@ -3,7 +3,7 @@ import { GameState, ChessColor } from "/js/game/communication/protodef.js";
 import { gameInfo } from "/js/game/chessController.js";
 
 export function updateOpponentNickname(nickname) {
-    document.getElementById("opponent-nickname").innerText = nickname;
+    document.getElementById("").innerText = nickname;
 }
 
 export function updateGameState(state) {

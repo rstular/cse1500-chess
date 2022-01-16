@@ -15,6 +15,13 @@ function initializePage() {
     NICKNAME_INPUT.value = window.localStorage.getItem("nickname") ?? "";
 
     JOIN_GAME_BUTTON.addEventListener("click", joinGame);
+
+    sidebarSlide();
 }
+
+let sidebarSlide = function () {
+    document.querySelector('.sidebar-left').style.width = "150px";
+    document.querySelector('.hero-image').style.marginLeft = "150px";
+};
 
 window.addEventListener("DOMContentLoaded", initializePage);
