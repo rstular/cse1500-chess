@@ -159,7 +159,7 @@ h2 {
     z-index: 1;
     overflow-x: hidden;
     transition: 0.5s;
-    background-image: linear-gradient(#153A31, #587B41);
+    background-image: linear-gradient(rgba(21, 58, 49, 0.9),rgba(88, 123, 65, 0.8) );
     counter-reset: player;
     color: white;
     border-right: 2px solid;
@@ -179,4 +179,11 @@ h2 {
 }
 .sidebar-title::after {
     content: "Player(s) online:";
+}
+
+.join-button-label {
+    font-size: 12px;
+}
+.join-button-label a:active {
+    color: yellow;
 }

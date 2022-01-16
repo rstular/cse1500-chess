@@ -16,6 +16,8 @@ function initializePage() {
 
     JOIN_GAME_BUTTON.addEventListener("click", joinGame);
 
+    document.querySelector('#rules-modal-link').addEventListener('click', () => alert('make me do something'));
+
     sidebarSlide();
 }
 
