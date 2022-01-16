@@ -3,6 +3,7 @@ import { gameInfo } from "/js/game/chessController.js";
 import { socket } from "/js/game/communication/communication.js";
 import { GameState, Messages } from "/js/game/communication/protodef.js";
 import { getElementLabel, playMoveSound } from "/js/game/ui/board.js";
+import { addMove } from "/js/game/ui/gameStatus.js";
 import { showModalWithContent } from "/js/game/ui/modal.js";
 
 export function pieceDragStart(e) {
@@ -70,6 +71,7 @@ export function squarePieceDrop(e) {
         playMoveSound(moveWithInfo.flags);
         e.currentTarget.replaceChildren(SOURCE_ELEMENT);
 
+        addMove(moveWithInfo.san);
         if (gameInfo.board.game_over()) {
             if (gameInfo.board.in_checkmate()) {
                 showModalWithContent("Checkmate", "Checkmate!");

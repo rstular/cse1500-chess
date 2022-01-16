@@ -26,19 +26,25 @@
     <div id="game-container">
         <div id="board"></div>
         <div id="game-info">
+            <div class="info-container">
+                <div id="opponent-info">
+                    <p>
+                        Opponent nickname:
+                        <span id="opponent-nickname">N/A</span>
+                    </p>
+                </div>
+                <div id="move-list-container">
+                    <h3>Move list</h3>
+                    <div id="move-list-wrapper">
+                        <div id="move-list"></div>
+                    </div>
+                </div>
+            </div>
+
             <div id="game-status" class="waiting-for-players">
                 <p>
                     Game status:
                     <span id="game-status-text">Waiting for players</span>
-                </p>
-            </div>
-            <div id="move-list-container">
-                <h3>Move list</h3>
-                <ul id="move-list"></ul>
-            </div>
-            <div id="opponent-info">
-                <p>
-                    Opponent nickname: <span id="opponent-nickname">N/A</span>
                 </p>
             </div>
         </div>
@@ -61,6 +67,13 @@
     </template>
     <template id="template-piece">
         <img class="piece-img" draggable="true" />
+    </template>
+    <template id="template-move">
+        <div class="move-wrapper">
+            <div class="move">
+                <span class="move-text"></span>
+            </div>
+        </div>
     </template>
 
     <script src="/js/game/main.js" type="module"></script>

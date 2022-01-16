@@ -42,3 +42,14 @@ export function updateGameState(state) {
             console.error("Unknown game state:", state);
     }
 }
+
+export function addMove(moveText, moveColor = ChessColor.NONE) {
+    const MOVE_LIST_CONTAINER = document.getElementById("move-list");
+
+    const new_move = document
+        .getElementById("template-move")
+        .content.cloneNode(true);
+
+    new_move.querySelector(".move-text").innerText = moveText;
+    MOVE_LIST_CONTAINER.appendChild(new_move);
+}

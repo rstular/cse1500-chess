@@ -18,3 +18,9 @@ body {
     background-repeat: no-repeat;
     background-color: "#0f1240";
 }
+
+#game-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}

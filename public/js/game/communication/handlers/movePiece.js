@@ -1,5 +1,6 @@
 import { gameInfo } from "/js/game/chessController.js";
-import { updateBoard, playMoveSound } from "/js/game/ui/board.js";
+import { playMoveSound, updateBoard } from "/js/game/ui/board.js";
+import { addMove } from "/js/game/ui/gameStatus.js";
 import { showModalWithContent } from "/js/game/ui/modal.js";
 
 export function handleMovePiece(move_object) {
@@ -13,7 +14,8 @@ export function handleMovePiece(move_object) {
         }
     }
     updateBoard(gameInfo.board.board());
-
+    
+    addMove(move_object.san);
     if (gameInfo.board.game_over()) {
         if (gameInfo.board.in_checkmate()) {
             showModalWithContent("Checkmate", "Checkmate!");
