@@ -1,0 +1,8 @@
+@media screen and (max-height: 700px ), screen and (max-width: 1000px) {
+    body {
+        display: none !important;
+    }
+    html::after {
+        content: "Pay-to-win Chess requires a larger screen.";
+    }
+}
