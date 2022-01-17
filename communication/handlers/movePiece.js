@@ -1,8 +1,8 @@
 const logger = require("../../logger");
-const { Messages } = require("../protodef");
 const { GameManager, ConnectionManager } = require("../../game/controller");
 const { getRandomFromList } = require("../../utils");
 const {
+    Messages,
     GameState,
     ChessColor,
     ItemsEnum,
@@ -102,12 +102,12 @@ function handleMovePiece(socket, data) {
             game.board.in_threefold_repetition() ||
             game.board.insufficient_material()
         ) {
-            game.setState(protodef.GameState.DRAW);
+            game.setState(GameState.DRAW);
         } else if (game.board.in_checkmate()) {
             game.setState(
-                game.board.turn() === protodef.ChessColor.WHITE
-                    ? protodef.GameState.WON_BLACK
-                    : protodef.GameState.WON_WHITE
+                game.board.turn() === ChessColor.WHITE
+                    ? GameState.WON_BLACK
+                    : GameState.WON_WHITE
             );
         }
     }
