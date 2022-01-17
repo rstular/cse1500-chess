@@ -9,6 +9,7 @@ import {
     GameAbortedReason,
     ChessColor,
 } from "/js/game/communication/protodef.js";
+import { disableInventoryUse } from "/js/game/ui/inventory.js";
 
 export function handleSetState({ state, stateInfo }) {
     gameInfo.state = state;
@@ -17,6 +18,9 @@ export function handleSetState({ state, stateInfo }) {
     if (state === GameState.WAITING_FOR_PLAYERS) {
     } else if (state === GameState.PLAYING) {
         updateOpponentNickname(stateInfo.opponentNickname);
+        if (gameInfo.playerColor !== gameInfo.board.turn()) {
+            disableInventoryUse();
+        }
     } else if (state === GameState.ABORTED) {
         switch (stateInfo.reason) {
             case GameAbortedReason.PLAYER_DISCONNECTED:
