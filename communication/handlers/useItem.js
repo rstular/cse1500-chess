@@ -33,14 +33,14 @@ function useItemHandler(socket, { item, itemData }) {
         return;
     }
 
-    if (item === ItemsEnum.Drunk) {
-        if (socket.inventory[ItemsEnum.Drunk] === 0) {
-            logger.error("You don't have any drunk");
-            return;
-        }
+    if (socket.inventory[item] === 0) {
+        logger.error("You don't have any of this item");
+        return;
+    }
+    socket.inventory[item]--;
 
+    if (item === ItemsEnum.Drunk) {
         logger.debug("Enqueuing " + item);
-        socket.inventory[ItemsEnum.Drunk]--;
         if (game.playerWhite === socket) {
             game.queuedEvents.black.push({ type: ItemsEnum.Drunk });
         } else {
@@ -69,6 +69,32 @@ function useItemHandler(socket, { item, itemData }) {
                 messageWhite: "Oh no! A lightning strike blew you up!",
             });
         }
+    } else if (item === ItemsEnum.Assassination) {
+        if (game.board.get(itemData.field) === null) {
+            logger.error("You can't assassinate a piece that doesn't exist");
+            return;
+        } else if (game.board.get(itemData.field).type === "k") {
+            logger.error("You can't assassinate a king");
+            return;
+        }
+        game.board.remove(itemData.field);
+
+        if (game.playerWhite === socket) {
+            game.playerBlack.sendMessage(Messages.USE_ITEM, {
+                item: item,
+                itemData: { field: itemData.field },
+            });
+        } else {
+            game.playerWhite.sendMessage(Messages.USE_ITEM, {
+                item: item,
+                itemData: { field: itemData.field },
+            });
+        }
+
+        game.sendBoardUpdate();
+        game.checkGameOver();
+    } else {
+        logger.error("Unknown item: " + item);
     }
 }
 

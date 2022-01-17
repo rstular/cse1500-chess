@@ -10,18 +10,22 @@ import {
     ChessColor,
 } from "/js/game/communication/protodef.js";
 import { disableInventoryUse } from "/js/game/ui/inventory.js";
+import { updateTurnText, setMiscText } from "/js/game/ui/gameStatus.js";
 
 export function handleSetState({ state, stateInfo }) {
     gameInfo.state = state;
     updateGameState(state);
 
     if (state === GameState.WAITING_FOR_PLAYERS) {
+        setMiscText("...");
     } else if (state === GameState.PLAYING) {
+        updateTurnText();
         updateOpponentNickname(stateInfo.opponentNickname);
         if (gameInfo.playerColor !== gameInfo.board.turn()) {
             disableInventoryUse();
         }
     } else if (state === GameState.ABORTED) {
+        setMiscText("Game over");
         switch (stateInfo.reason) {
             case GameAbortedReason.PLAYER_DISCONNECTED:
                 showModalWithContent(
@@ -51,6 +55,7 @@ export function handleSetState({ state, stateInfo }) {
                 break;
         }
     } else if (state === GameState.WON_WHITE) {
+        setMiscText("Game over");
         showModalWithContent(
             "Game over",
             gameInfo.playerColor === ChessColor.WHITE
@@ -58,11 +63,17 @@ export function handleSetState({ state, stateInfo }) {
                 : stateInfo.messageBlack || "You lost!"
         );
     } else if (state === GameState.WON_BLACK) {
+        setMiscText("Game over");
         showModalWithContent(
             "Game over",
             gameInfo.playerColor === ChessColor.BLACK
                 ? stateInfo.messageBlack || "You won!"
                 : stateInfo.messageWhite || "You lost!"
         );
+    } else if (state === GameState.DRAW) {
+        setMiscText("Game over");
+        showModalWithContent("Game over", "The game ended in a draw.");
+    } else {
+        console.error("Unknown game state:", state);
     }
 }

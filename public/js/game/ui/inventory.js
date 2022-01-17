@@ -2,6 +2,8 @@ import { ItemsEnum, Messages } from "/js/game/communication/protodef.js";
 import { socket } from "/js/game/communication/communication.js";
 import { gameInfo } from "/js/game/chessController.js";
 import { sounds } from "/js/game/audio.js";
+import { showModalWithContent, hideAllModals } from "/js/game/ui/modal.js";
+import { updateTurnText, setMiscText } from "/js/game/ui/gameStatus.js";
 
 export const inventoryInfo = {
     buttonsDisabled: true,
@@ -55,6 +57,39 @@ export function showInventory() {
     MODAL.classList.add("shown");
 }
 
+export function doAssassination(field) {
+    if (gameInfo.inventory[ItemsEnum.Assassination] <= 0) {
+        console.error("No assassination items left");
+        gameInfo.assassinMode = false;
+        return;
+    }
+
+    if (gameInfo.board.get(field) === null) {
+        showModalWithContent(
+            "Assassin mode",
+            "You must select a piece to assassinate"
+        );
+        return;
+    } else if (gameInfo.board.get(field).type === "k") {
+        showModalWithContent("Assassin mode", "You cannot assassinate a king");
+        return;
+    }
+
+    console.debug("Assassinating piece at field:", field);
+
+    // Decrease number of available assassination items
+    gameInfo.inventory[ItemsEnum.Assassination]--;
+    updateInventoryCount();
+    recomputeButtons();
+    gameInfo.assassinMode = false;
+    sounds.assassination.play();
+    updateTurnText(); // Reset misc text
+    socket.sendMessage(Messages.USE_ITEM, {
+        item: ItemsEnum.Assassination,
+        itemData: { field },
+    });
+}
+
 function handleButtonClick(itemId) {
     console.log("Handling button click for item:", itemId);
     if (gameInfo.inventory[itemId] <= 0) {
@@ -84,6 +119,15 @@ function handleButtonClick(itemId) {
             sounds.explosion.play();
             updateInventoryCount();
             recomputeButtons();
+            break;
+        case ItemsEnum.Assassination:
+            gameInfo.assassinMode = true;
+            setMiscText("Assassin mode on");
+            hideAllModals();
+            showModalWithContent(
+                "Assassination HQ",
+                "Click on the piece you want assassinated."
+            );
             break;
         default:
             sounds.invalid.play();

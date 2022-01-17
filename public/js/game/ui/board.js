@@ -7,6 +7,7 @@ import {
     pieceDragStart,
     pieceDragEnd,
 } from "/js/game/ui/dnd.js";
+import { doAssassination } from "/js/game/ui/inventory.js";
 
 export function playMoveSound(move_flags) {
     if (gameInfo.board.in_checkmate()) {
@@ -140,6 +141,13 @@ export function updateBoard(board_state) {
     }
 }
 
+function squareClickHandler(event) {
+    if (gameInfo.assassinMode) {
+        const label = getElementLabel(event.currentTarget);
+        doAssassination(label);
+    }
+}
+
 export const constructHtmlBoard = () => {
     const BOARD_ELEMENT = document.getElementById("board");
 
@@ -154,6 +162,12 @@ export const constructHtmlBoard = () => {
                     : template_even.content.cloneNode(true);
             generatedSquare.firstElementChild.dataset.row = i;
             generatedSquare.firstElementChild.dataset.col = j;
+            // Listen for clicks (used for assassinations)
+            generatedSquare.firstElementChild.addEventListener(
+                "click",
+                squareClickHandler,
+                true
+            );
             BOARD_ELEMENT.appendChild(generatedSquare);
         }
     }

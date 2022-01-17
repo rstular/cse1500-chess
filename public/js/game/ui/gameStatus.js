@@ -10,6 +10,17 @@ export function updateOpponentNickname(nickname) {
     document.getElementById("opponent-nickname").innerText = nickname;
 }
 
+export function setMiscText(text) {
+    document.getElementById("misc-status").innerText = text;
+}
+
+export function updateTurnText() {
+    document.getElementById("misc-status").innerText =
+        gameInfo.board.turn() === gameInfo.playerColor
+            ? "Your turn"
+            : "Opponent's turn";
+}
+
 function disableResignButton() {
     document.getElementById("button-resign").disabled = true;
 }

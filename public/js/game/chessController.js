@@ -9,6 +9,7 @@ export const gameInfo = {
     playerColor: ChessColor.NONE,
     board: new Chess(),
     state: GameState.WAITING_FOR_PLAYERS,
+    assassinMode: false,
     inventory: Object.values(ItemsEnum).reduce((acc, item) => {
         acc[item] = 0;
         return acc;

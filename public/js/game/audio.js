@@ -8,4 +8,5 @@ export const sounds = {
     draw: new Audio("/audio/draw.mp3"),
     drunk: new Audio("/audio/drunk.mp3"),
     explosion: new Audio("/audio/explosion.mp3"),
+    assassination: new Audio("/audio/assassination.mp3"),
 };

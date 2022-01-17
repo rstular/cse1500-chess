@@ -95,22 +95,7 @@ function handleMovePiece(socket, data) {
     }
 
     // Check if the game is over
-    if (game.board.game_over()) {
-        if (
-            game.board.in_draw() ||
-            game.board.in_stalemate() ||
-            game.board.in_threefold_repetition() ||
-            game.board.insufficient_material()
-        ) {
-            game.setState(GameState.DRAW);
-        } else if (game.board.in_checkmate()) {
-            game.setState(
-                game.board.turn() === ChessColor.WHITE
-                    ? GameState.WON_BLACK
-                    : GameState.WON_WHITE
-            );
-        }
-    }
+    game.checkGameOver();
 }
 
 module.exports = handleMovePiece;

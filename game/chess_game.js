@@ -1,5 +1,9 @@
 const utils = require("../utils");
-const protodef = require("../communication/protodef");
+const {
+    GameState,
+    ChessColor,
+    Messages,
+} = require("../communication/protodef");
 const logger = require("../logger");
 const { Chess } = require("../lib/chess");
 const WebSocket = require("ws");
@@ -12,7 +16,7 @@ class ChessGame {
         this.playerBlack = null;
         this.inviteCode = utils.generateRandomString(6); // To be used for implementing invite-only games
         this.isPrivate = false;
-        this.state = protodef.GameState.WAITING_FOR_PLAYERS;
+        this.state = GameState.WAITING_FOR_PLAYERS;
         this.queuedEvents = {
             white: [],
             black: [],
@@ -50,12 +54,12 @@ class ChessGame {
                 ];
             }
             // Set the game state as "playing"
-            this.state = protodef.GameState.PLAYING;
-            this.playerWhite.sendMessage(protodef.Messages.SET_COLOR, {
-                color: protodef.ChessColor.WHITE,
+            this.state = GameState.PLAYING;
+            this.playerWhite.sendMessage(Messages.SET_COLOR, {
+                color: ChessColor.WHITE,
             });
-            this.playerBlack.sendMessage(protodef.Messages.SET_COLOR, {
-                color: protodef.ChessColor.BLACK,
+            this.playerBlack.sendMessage(Messages.SET_COLOR, {
+                color: ChessColor.BLACK,
             });
         }
         return this.state;
@@ -70,39 +74,58 @@ class ChessGame {
     }
 
     start() {
-        if (this.state !== protodef.GameState.PLAYING) {
+        if (this.state !== GameState.PLAYING) {
             throw new Error("Game is not in PLAYING state");
         }
         logger.debug(`Starting game ${this.gameId}`);
-        this.playerWhite.sendMessage(protodef.Messages.BOARD_UPDATE, {
+        this.playerWhite.sendMessage(Messages.BOARD_UPDATE, {
             board: this.board.fen(),
         });
-        this.playerBlack.sendMessage(protodef.Messages.BOARD_UPDATE, {
+        this.playerBlack.sendMessage(Messages.BOARD_UPDATE, {
             board: this.board.fen(),
         });
-        this.playerWhite.sendMessage(protodef.Messages.SET_STATE, {
+        this.playerWhite.sendMessage(Messages.SET_STATE, {
             state: this.state,
             stateInfo: { opponentNickname: this.playerBlack.nickname },
         });
-        this.playerBlack.sendMessage(protodef.Messages.SET_STATE, {
+        this.playerBlack.sendMessage(Messages.SET_STATE, {
             state: this.state,
             stateInfo: { opponentNickname: this.playerWhite.nickname },
         });
     }
 
+    sendBoardUpdate() {
+        if (
+            this.playerWhite !== null &&
+            this.playerWhite.readyState === WebSocket.OPEN
+        ) {
+            this.playerWhite.sendMessage(Messages.BOARD_UPDATE, {
+                board: this.board.fen(),
+            });
+        }
+        if (
+            this.playerBlack !== null &&
+            this.playerBlack.readyState === WebSocket.OPEN
+        ) {
+            this.playerBlack.sendMessage(Messages.BOARD_UPDATE, {
+                board: this.board.fen(),
+            });
+        }
+    }
+
     abort(reason, player) {
         logger.debug(`Aborting game ${this.gameId}`);
-        this.state = protodef.GameState.ABORTED;
+        this.state = GameState.ABORTED;
 
         const abortInfo = {
             reason,
             player:
                 player === this.playerWhite
-                    ? protodef.ChessColor.WHITE
-                    : protodef.ChessColor.BLACK,
+                    ? ChessColor.WHITE
+                    : ChessColor.BLACK,
         };
 
-        this.setState(protodef.GameState.ABORTED, abortInfo);
+        this.setState(GameState.ABORTED, abortInfo);
     }
 
     setState(state, stateInfo = {}) {
@@ -111,7 +134,7 @@ class ChessGame {
             this.playerWhite !== null &&
             this.playerWhite.readyState === WebSocket.OPEN
         ) {
-            this.playerWhite.sendMessage(protodef.Messages.SET_STATE, {
+            this.playerWhite.sendMessage(Messages.SET_STATE, {
                 state,
                 stateInfo,
             });
@@ -120,10 +143,29 @@ class ChessGame {
             this.playerBlack !== null &&
             this.playerBlack.readyState === WebSocket.OPEN
         ) {
-            this.playerBlack.sendMessage(protodef.Messages.SET_STATE, {
+            this.playerBlack.sendMessage(Messages.SET_STATE, {
                 state,
                 stateInfo,
             });
+        }
+    }
+
+    checkGameOver() {
+        if (this.board.game_over()) {
+            if (
+                this.board.in_draw() ||
+                this.board.in_stalemate() ||
+                this.board.in_threefold_repetition() ||
+                this.board.insufficient_material()
+            ) {
+                this.setState(GameState.DRAW);
+            } else if (this.board.in_checkmate()) {
+                this.setState(
+                    this.board.turn() === ChessColor.WHITE
+                        ? GameState.WON_BLACK
+                        : GameState.WON_WHITE
+                );
+            }
         }
     }
 }

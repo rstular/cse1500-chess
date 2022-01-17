@@ -20,6 +20,12 @@ export function showModalWithContent(title, text) {
     showModal();
 }
 
+export function hideAllModals() {
+    document.querySelectorAll(".modal-container").forEach((modal) => {
+        modal.classList.add("hiding");
+    });
+}
+
 export function initializeModal() {
     document.querySelectorAll(".modal").forEach((modal) => {
         modal.addEventListener("click", (e) => {
