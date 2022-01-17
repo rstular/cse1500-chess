@@ -1,7 +1,9 @@
-import { ItemsEnum } from "/js/game/communication/protodef.js";
+import { ItemsEnum, Messages } from "/js/game/communication/protodef.js";
 import { socket } from "/js/game/communication/communication.js";
 import { gameInfo } from "/js/game/chessController.js";
-import { Messages } from "/js/game/communication/protodef.js";
+import { sounds } from "/js/game/audio.js";
+
+var buttonsDisabled = true;
 
 export function updateInventoryCount() {
     const inventory = document.getElementById("inventory");
@@ -18,14 +20,27 @@ export function redeemItems(orderId) {
     socket.sendMessage(Messages.REDEEM_PURCHASE, { orderId });
 }
 
-export function enableInventoryUse() {
-    const buttons = document.querySelectorAll(".inventory-button");
-    for (const button of buttons) {
-        button.disabled = false;
+export function recomputeButtons() {
+    const inventory = document.getElementById("inventory");
+    const inventoryItems = inventory.querySelectorAll(".inventory-item");
+    for (const item of inventoryItems) {
+        const itemId = item.getAttribute("data-item-id");
+        const itemCount = gameInfo.inventory[itemId];
+        if (itemCount > 0 || buttonsDisabled) {
+            item.querySelector(".inventory-button").disabled = false;
+        } else {
+            item.querySelector(".inventory-button").disabled = true;
+        }
     }
 }
 
+export function enableInventoryUse() {
+    buttonsDisabled = false;
+    recomputeButtons();
+}
+
 export function disableInventoryUse() {
+    buttonsDisabled = true;
     const buttons = document.querySelectorAll(".inventory-button");
     for (const button of buttons) {
         button.disabled = true;
@@ -40,6 +55,28 @@ export function showInventory() {
 
 function handleButtonClick(itemId) {
     console.log("Handling button click for item:", itemId);
+    if (gameInfo.inventory[itemId] <= 0) {
+        console.error(
+            "Tried to use item that doesn't exist or is out of stock"
+        );
+        return;
+    }
+
+    switch (itemId) {
+        case ItemsEnum.Drunk:
+            gameInfo.inventory[itemId]--;
+            socket.sendMessage(Messages.USE_ITEM, {
+                item: itemId,
+                itemData: {},
+            });
+            sounds.drunk.play();
+            updateInventoryCount();
+            recomputeButtons();
+            break;
+        default:
+            sounds.invalid.play();
+            console.error("Unhandled item ID:", itemId);
+    }
 }
 
 export function registerButtonHandlers() {

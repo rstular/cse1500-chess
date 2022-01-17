@@ -13,6 +13,10 @@ class ChessGame {
         this.inviteCode = utils.generateRandomString(6); // To be used for implementing invite-only games
         this.isPrivate = false;
         this.state = protodef.GameState.WAITING_FOR_PLAYERS;
+        this.queuedEvents = {
+            white: [],
+            black: [],
+        };
         this.board = new Chess();
     }
 
