@@ -9,4 +9,4 @@ You will need a valid PayPal Client ID/Secret pair in order to set up a local in
 
 You can use the sandbox credentials provided to you on the paypal dashboard (the email should have the format `{{username}}@personal.example.com`) in order to make fake purchases in the testing environment.
 
-After setting up your environment, simply run `npm start` to launch the app.
+After setting up your environment, simply run `npm install` and subsequently `npm start` to launch the app.
