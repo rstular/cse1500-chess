@@ -9,15 +9,11 @@
 }
 
 #main-modal {
-    z-index: 3;
+    z-index: 10;
 }
 
-#payments-modal {
-    z-index: 2;
-}
-
-#inventory-modal {
-    z-index: 1;
+.modal {
+    max-width: 60%;
 }
 
 .modal-container.shown {

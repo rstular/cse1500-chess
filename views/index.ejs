@@ -5,8 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><%= title %></title>
-        <link rel="stylesheet" href="/stylesheets/splash.css" />
-        <link rel="stylesheet" href="/stylesheets/screencheck.css" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="/stylesheets/splash/splash.css" />
+        <link rel="stylesheet" href="/stylesheets/splash/screencheck.css" />
+        <link rel="stylesheet" href="/stylesheets/splash/modal.css" />
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons"
@@ -15,19 +17,17 @@
 
     <body>
         <div id="player-sidebar" class="sidebar-left">
-                <div class="sidebar-title">
-                    <%= players.length %>
-                </div>
-                <% players.forEach(function (player) { %>
-                    <div class="player"><%= player %></div>
-                <% }); %>
+            <div class="sidebar-title"><%= players.length %></div>
+            <% players.forEach(function (player) { %>
+            <div class="player"><%= player %></div>
+            <% }); %>
         </div>
 
         <div id="stats-div" class="stats-div">
-            <span>Games played in total: <%= nGamesPlayed %></span><br>
-            <span>Money spent in total:  $<%= amountSpent %></span>
+            <p>Games played in total: <%= nGamesPlayed %></p>
+            <p>Total money spent: $<%= amountSpent %></p>
         </div>
-    
+
         <div class="hero-image">
             <div class="hero-content">
                 <h1>Pay-to-win Chess</h1>
@@ -45,14 +45,31 @@
                         maxlength="32"
                     />
                 </div>
-                <button id="join-game-button" class="button button-primary">
-                    <span>Join a game</span>
-                </button>
-                <br>
-                <label for="join-game-button" class="join-button-label">
-                    <a id="rules-modal-link" href='#'>Rules</a>
-                </label>
-                <!-- <button class="button button-secondary"><span>Host a private game</span></button> -->
+                <div class="button-group">
+                    <button id="join-game-button" class="button button-primary">
+                        <span>Join a game</span>
+                    </button>
+                    <br />
+                    <button id="rules-modal-link" class="button">
+                        <span>Rules</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-modal" class="modal-container">
+            <div class="modal-background">
+                <div class="modal">
+                    <h2>Rules of the game</h2>
+                    <hr />
+                    <p>The rules are quite simple.</p>
+                    <p>
+                        You will be playing a completely normal game of chess.
+                        However, there is a minor, yet very important
+                        difference: <b>pay-to-win</b> is a viable strategy!
+                    </p>
+                    <p>Are you willing to spend more than your opponent?</p>
+                </div>
             </div>
         </div>
 
