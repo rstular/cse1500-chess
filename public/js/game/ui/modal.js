@@ -3,8 +3,16 @@ function setContent(title, text) {
     document.getElementById("modal-text").innerText = text;
 }
 
+export function showPaymentsModal() {
+    const MODAL = document.getElementById("payments-modal");
+    MODAL.classList.remove("hiding");
+    MODAL.classList.add("shown");
+}
+
 export function showModal() {
-    document.getElementById("main-modal").style.display = "block";
+    const MODAL = document.getElementById("main-modal");
+    MODAL.classList.add("shown");
+    MODAL.classList.remove("hiding");
 }
 
 export function showModalWithContent(title, text) {
@@ -13,16 +21,16 @@ export function showModalWithContent(title, text) {
 }
 
 export function initializeModal() {
-    window.onclick = (evt) => {
-        if (evt.target.classList.contains("modal")) {
-            evt.target.style.display = "none";
-        }
-    };
+    document.querySelectorAll(".modal").forEach((modal) => {
+        modal.addEventListener("click", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
 
-    const closeButtonList = document.getElementsByClassName("modal-close");
-    for (const closeButton of closeButtonList) {
-        closeButton.onclick = (evt) => {
-            evt.target.parentElement.parentElement.style.display = "none";
-        };
-    }
+    document.querySelectorAll(".modal-container").forEach((container) => {
+        container.addEventListener("click", (e) => {
+            container.classList.add("hiding");
+        });
+    });
 }

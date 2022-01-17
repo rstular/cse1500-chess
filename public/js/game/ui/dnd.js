@@ -5,6 +5,8 @@ import { GameState, Messages } from "/js/game/communication/protodef.js";
 import { getElementLabel, playMoveSound } from "/js/game/ui/board.js";
 import { addMove } from "/js/game/ui/gameStatus.js";
 import { showModalWithContent } from "/js/game/ui/modal.js";
+import { disableInventoryUse } from "/js/game/ui/inventory.js";
+
 
 export function pieceDragStart(e) {
     console.log("dragstart", e);
@@ -64,6 +66,8 @@ export function squarePieceDrop(e) {
             sounds.invalid.play();
             return;
         }
+
+        disableInventoryUse();
 
         console.debug("Sending move", moveWithInfo);
         socket.sendMessage(Messages.MOVE_PIECE, moveObject);

@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="/stylesheets/game/game-status.css" />
     <link rel="stylesheet" href="/stylesheets/game/modal.css" />
     <link rel="stylesheet" href="/stylesheets/screencheck.css" />
+    <link rel="stylesheet" href="/stylesheets/game/inventory.css" />
     <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto"
+        href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons"
     />
 
     <style>
@@ -24,15 +25,42 @@
 </head>
 
 <body>
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AQW7-4J6tGdAA7VhEyAUPKccYoBzWUKubpLh0tQ1nov6Fp6G7kUjss32UoQ6ZRW25BEyJh5Wk0Xw1Zk1&currency=EUR&disable-funding=credit,card,ideal,bancontact,sofort,venmo,sepa,p24,mybank,mercadopago,giropay,eps,blik"></script>
+
     <div id="game-container">
         <div id="board"></div>
         <div id="game-info">
             <div class="info-container">
                 <div id="opponent-info">
                     <p>
-                        Opponent nickname:
+                        Opponent:
                         <span id="opponent-nickname">N/A</span>
                     </p>
+                </div>
+                <div class="button-group">
+                    <button
+                        class="game-button"
+                        id="button-p2w"
+                        title="Buy an advantage over your opponent"
+                    >
+                        <span class="material-icons">paid</span>
+                    </button>
+                    <button
+                        class="game-button"
+                        id="button-resign"
+                        title="Resign the game"
+                        disabled
+                    >
+                        <span class="material-icons">flag</span>
+                    </button>
+                    <button
+                        class="game-button"
+                        id="button-inventory"
+                        title="Open your item inventory"
+                    >
+                        <span class="material-icons">inventory</span>
+                    </button>
                 </div>
                 <div id="move-list-container">
                     <h3>Move list</h3>
@@ -52,12 +80,197 @@
         </div>
     </div>
 
-    <div id="main-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h1 id="modal-title"></h1>
-            <hr />
-            <p id="modal-text"></p>
+    <div id="main-modal" class="modal-container">
+        <div class="modal-background">
+            <div class="modal">
+                <h2 id="modal-title"></h2>
+                <p id="modal-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="payments-modal" class="modal-container">
+        <div class="modal-background">
+            <div class="modal">
+                <h2 id="modal-title">Select your weapon</h2>
+                <div class="listings-continer">
+                    <div class="listing">
+                        <div class="listing-entry">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/assassination.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Assassination</h4>
+                                <p class="listing-subtitle">
+                                    Remove any piece from the board (except the
+                                    kings)
+                                </p>
+                            </div>
+                            <div class="payment-container">
+                                <p class="price">
+                                    <span class="price-currency">$</span>4.99
+                                </p>
+                                <div id="pp-btn-assassination"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing">
+                        <div class="listing-entry">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/drunk.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Drunk</h4>
+                                <p class="listing-subtitle">
+                                    Your oponent will play a random move on
+                                    their next turn
+                                </p>
+                            </div>
+                            <div class="payment-container">
+                                <p class="price">
+                                    <span class="price-currency">$</span>2.99
+                                </p>
+                                <div id="pp-btn-drunk"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing">
+                        <div class="listing-entry">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/donderslag.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">
+                                    Delftse Donderslag
+                                </h4>
+                                <p class="listing-subtitle">
+                                    Those who know, know.
+                                </p>
+                            </div>
+                            <div class="payment-container">
+                                <p class="price">
+                                    <span class="price-currency">$</span>1654.00
+                                </p>
+                                <div id="pp-btn-donderslag"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="inventory-modal" class="modal-container">
+        <div id="inventory" class="modal-background">
+            <div class="modal">
+                <h2 id="modal-title">Inventory</h2>
+                <div class="listings-continer">
+                    <div class="inventory-item-wrapper">
+                        <div
+                            class="inventory-item"
+                            data-item-id="assassination"
+                        >
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/assassination.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Assassination</h4>
+                                <p class="listing-subtitle">
+                                    Remove any piece from the board (except the
+                                    kings)
+                                </p>
+                            </div>
+                            <div class="item-count-container">
+                                <p class="item-count">0</p>
+                                <div class="item-use-button-container">
+                                    <button
+                                        id="btn-assassination"
+                                        class="inventory-button"
+                                        disabled
+                                    >
+                                        Use
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing">
+                        <div class="inventory-item" data-item-id="drunk">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/drunk.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Drunk</h4>
+                                <p class="listing-subtitle">
+                                    Your oponent will play a random move on
+                                    their next turn
+                                </p>
+                            </div>
+                            <div class="item-count-container">
+                                <p class="item-count">0</p>
+                                <div class="item-use-button-container">
+                                    <button
+                                        id="btn-drunk"
+                                        class="inventory-button"
+                                        disabled
+                                    >
+                                        Use
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing">
+                        <div class="inventory-item" data-item-id="donderslag">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/donderslag.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">
+                                    Delftse Donderslag
+                                </h4>
+                                <p class="listing-subtitle">
+                                    Those who know, know.
+                                </p>
+                            </div>
+                            <div class="item-count-container">
+                                <p class="item-count">0</p>
+                                <div class="item-use-button-container">
+                                    <button
+                                        id="btn-donderslag"
+                                        class="inventory-button"
+                                        disabled
+                                    >
+                                        Use
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

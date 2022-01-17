@@ -13,22 +13,28 @@ export const GameAbortedReason = {
 };
 
 export const Messages = {
-    HEALTH_CHECK: 0,
     HANDSHAKE: 1,
     JOIN_GAME: 2,
     BOARD_UPDATE: 3,
-    TURN_UPDATE: 4,
-    JOIN_GAME: 5,
-    MOVE_PIECE: 6,
-    SET_COLOR: 7,
-    SET_STATE: 8,
+    MOVE_PIECE: 4,
+    SET_COLOR: 5,
+    SET_STATE: 6,
+    RESIGN: 7,
+    REDEEM_PURCHASE: 8,
+    SET_INVENTORY: 9,
+    USE_ITEM: 10,
+};
+
+export const ChessMoveType = {
+    REGULAR: 0,
+    MONEY_REMOVE: 1,
 };
 
 export const ChessColor = {
     WHITE: "w",
     BLACK: "b",
     NONE: "n",
-}
+};
 
 export const ChessPieceType = {
     PAWN: "p",
@@ -37,4 +43,31 @@ export const ChessPieceType = {
     BISHOP: "b",
     QUEEN: "q",
     KING: "k",
+};
+
+export const ItemsEnum = {
+    Assassination: "assassination",
+    Drunk: "drunk",
+    Donderslag: "donderslag",
+};
+
+export const Items = {
+    [ItemsEnum.Assassination]: {
+        id: ItemsEnum.Assassination,
+        name: "Assassination",
+        description: "Remove a piece from the board",
+        price: 4.99,
+    },
+    [ItemsEnum.Drunk]: {
+        id: ItemsEnum.Drunk,
+        name: "Drunk",
+        description: "The opponent will play a random move",
+        price: 2.99,
+    },
+    [ItemsEnum.Donderslag]: {
+        id: ItemsEnum.Donderslag,
+        name: "Delftse Donderslag",
+        description: "Those who know, know.",
+        price: 1654.0,
+    },
 };

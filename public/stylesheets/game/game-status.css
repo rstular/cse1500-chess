@@ -58,7 +58,7 @@
 #opponent-info {
     margin: 0;
     width: 100%;
-    min-height: 4em;
+    min-height: 3em;
     max-height: 25%;
     font-size: 1.2em;
     background-color: rgb(132, 171, 255);
@@ -112,4 +112,64 @@
 .move-wrapper:nth-of-type(even) > .move {
     background-color: black;
     color: white;
+}
+
+.button-group {
+    display: flex;
+}
+
+.button-group button {
+    cursor: pointer;
+    float: left;
+    padding: 10px 24px;
+    border: none;
+    flex-grow: 1;
+}
+.button-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+.button-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.game-button:disabled {
+    cursor: default;
+}
+
+#button-p2w {
+    background-color: rgb(219, 162, 18);
+    color: white;
+    transition: linear 0.5s;
+}
+#button-p2w:disabled {
+    background-color: rgb(187, 187, 187);
+}
+#button-p2w:hover:enabled {
+    background-color: rgb(236, 200, 109);
+}
+
+#button-resign {
+    background-color: rgb(189, 69, 22);
+    color: white;
+    transition: linear 0.5s;
+}
+#button-resign:disabled {
+    background-color: rgb(120, 120, 120);
+}
+#button-resign:hover:enabled {
+    background-color: rgb(209, 121, 87);
+}
+
+#button-inventory {
+    background-color: rgb(0, 92, 69);
+    color: white;
+    transition: linear 0.5s;
+}
+#button-inventory:disabled {
+    background-color: rgb(90, 90, 90);
+}
+#button-inventory:hover:enabled {
+    background-color: rgb(0, 122, 86);
 }

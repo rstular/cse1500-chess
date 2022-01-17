@@ -7,14 +7,20 @@ import { gameInfo } from "/js/game/chessController.js";
 import {
     GameState,
     GameAbortedReason,
+    ChessColor,
 } from "/js/game/communication/protodef.js";
+import { disableInventoryUse } from "/js/game/ui/inventory.js";
 
 export function handleSetState({ state, stateInfo }) {
     gameInfo.state = state;
     updateGameState(state);
+
     if (state === GameState.WAITING_FOR_PLAYERS) {
     } else if (state === GameState.PLAYING) {
         updateOpponentNickname(stateInfo.opponentNickname);
+        if (gameInfo.playerColor !== gameInfo.board.turn()) {
+            disableInventoryUse();
+        }
     } else if (state === GameState.ABORTED) {
         switch (stateInfo.reason) {
             case GameAbortedReason.PLAYER_DISCONNECTED:
@@ -44,5 +50,19 @@ export function handleSetState({ state, stateInfo }) {
                 console.error("Unknown game aborted reason:", stateInfo.reason);
                 break;
         }
+    } else if (state === GameState.WON_WHITE) {
+        showModalWithContent(
+            "Game over",
+            gameInfo.playerColor === ChessColor.WHITE
+                ? stateInfo.messageWhite || "You won!"
+                : stateInfo.messageBlack || "You lost!"
+        );
+    } else if (state === GameState.WON_BLACK) {
+        showModalWithContent(
+            "Game over",
+            gameInfo.playerColor === ChessColor.BLACK
+                ? stateInfo.messageBlack || "You won!"
+                : stateInfo.messageWhite || "You lost!"
+        );
     }
 }

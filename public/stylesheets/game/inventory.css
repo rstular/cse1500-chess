@@ -1,0 +1,94 @@
+.listing-entry,
+.inventory-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 64px;
+    max-height: 64px;
+    column-gap: 10px;
+}
+
+.listing-img-container > img {
+    object-fit: contain;
+    height: 64px;
+}
+
+.listing-title {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+
+.listing-subtitle {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.listing-entry > hr {
+    border-top: 1px solid #ccc;
+    max-width: 200px;
+}
+
+.listing::after,
+.inventory-item-wrapper::after {
+    display: block;
+    border-top: 1px solid #ccc;
+    width: 100%;
+    content: "\00a0";
+    margin-top: 10px;
+}
+
+.listings-container {
+    margin-top: 30px;
+}
+
+.payment-container {
+    display: flex;
+    margin-left: auto;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.price-currency {
+    font-size: 0.9rem;
+}
+
+.price {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.item-count-container {
+    display: flex;
+    margin-left: auto;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.item-count {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.inventory-button {
+    background-color: rgb(116, 35, 35);
+    color: white;
+    cursor: pointer;
+    transition: linear 0.5s;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0 30px;
+}
+
+.inventory-button:hover {
+    background-color: rgb(160, 17, 17);
+}
+
+.inventory-button:disabled {
+    background-color: rgb(88, 88, 88);
+    color: white;
+    cursor: not-allowed;
+}

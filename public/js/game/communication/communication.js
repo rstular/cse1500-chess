@@ -5,11 +5,13 @@ import { handleBoardUpdate } from "/js/game/communication/handlers/boardUpdate.j
 import { handleSetColor } from "/js/game/communication/handlers/setColor.js";
 import { handleMovePiece } from "/js/game/communication/handlers/movePiece.js";
 import { handleSetState } from "/js/game/communication/handlers/setState.js";
+import { handleSetInventory } from "/js/game/communication/handlers/setInventory.js";
+import { handleUseItem } from "/js/game/communication/handlers/useItem.js";
 
 export var socket = new WebSocket(WEBSOCKET_URL);
 
 export function initializeSocket() {
-    socket.sendMessage = (messageType, payload) => {
+    socket.sendMessage = (messageType, payload = {}) => {
         console.debug("Sending message", messageType, payload);
         socket.send(
             JSON.stringify({
@@ -45,6 +47,12 @@ export function initializeSocket() {
                 break;
             case Messages.SET_STATE:
                 handleSetState(message.data);
+                break;
+            case Messages.SET_INVENTORY:
+                handleSetInventory(message.data);
+                break;
+            case Messages.USE_ITEM:
+                handleUseItem(message.data);
                 break;
             default:
                 console.error("Unknown message type", message.message);
