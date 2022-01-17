@@ -39,6 +39,7 @@ function captureOrder(orderId, responseObject) {
             }
 
             if (data.status === "COMPLETED") {
+                let moneySpent = 0;
                 for (const item of data.purchase_units) {
                     if (
                         item.payments.captures.every(
@@ -46,9 +47,13 @@ function captureOrder(orderId, responseObject) {
                         ) &&
                         !PaymentDatabase.redeemedOrders.has(item.reference_id)
                     ) {
+                        item.payments.captures.forEach((capture) => {
+                            moneySpent += parseFloat(capture.amount.value);
+                        });
                         PaymentDatabase.redeemableOrders.add(item.reference_id);
                     }
                 }
+                PaymentDatabase.addMoneySpent(moneySpent);
             }
 
             responseObject.status(res.statusCode);
