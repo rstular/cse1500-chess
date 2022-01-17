@@ -1,30 +1,48 @@
 import { StateMap } from "/js/datamap.js";
 import { GameState, ChessColor } from "/js/game/communication/protodef.js";
 import { gameInfo } from "/js/game/chessController.js";
+import {
+    enableInventoryUse,
+    disableInventoryUse,
+} from "/js/game/ui/inventory.js";
 
 export function updateOpponentNickname(nickname) {
     document.getElementById("opponent-nickname").innerText = nickname;
 }
 
-function disableGameButtons() {
-    document.querySelectorAll(".game-button").forEach((button) => {
-        button.disabled = true;
-    });
+function disableResignButton() {
+    document.getElementById("button-resign").disabled = true;
 }
 
-function enableGameButtons() {
-    document.querySelectorAll(".game-button").forEach((button) => {
-        button.disabled = false;
-    });
+function enableResignButton() {
+    document.getElementById("button-resign").disabled = false;
+}
+
+function disableShopButton() {
+    document.getElementById("button-p2w").disabled = true;
+}
+
+function enableShopButton() {
+    document.getElementById("button-p2w").disabled = false;
 }
 
 export function updateGameState(state) {
     document.getElementById("game-status-text").innerText = StateMap[state];
 
     if (state === GameState.PLAYING) {
-        enableGameButtons();
+        enableResignButton();
+        enableInventoryUse();
     } else {
-        disableGameButtons();
+        disableResignButton();
+        disableInventoryUse();
+    }
+    if (
+        state === GameState.PLAYING ||
+        state === GameState.WAITING_FOR_PLAYERS
+    ) {
+        enableShopButton();
+    } else {
+        disableShopButton();
     }
 
     const STATUS_CONTAINER = document.getElementById("game-status");

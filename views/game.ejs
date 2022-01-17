@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/game/board.css" />
     <link rel="stylesheet" href="/stylesheets/game/game-status.css" />
     <link rel="stylesheet" href="/stylesheets/game/modal.css" />
+    <link rel="stylesheet" href="/stylesheets/game/inventory.css" />
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons"
@@ -23,6 +24,9 @@
 </head>
 
 <body>
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AQW7-4J6tGdAA7VhEyAUPKccYoBzWUKubpLh0tQ1nov6Fp6G7kUjss32UoQ6ZRW25BEyJh5Wk0Xw1Zk1&currency=EUR&disable-funding=credit,card"></script>
+
     <div id="game-container">
         <div id="board"></div>
         <div id="game-info">
@@ -38,7 +42,6 @@
                         class="game-button"
                         id="button-p2w"
                         title="Buy an advantage over your opponent"
-                        disabled
                     >
                         <span class="material-icons">paid</span>
                     </button>
@@ -49,6 +52,13 @@
                         disabled
                     >
                         <span class="material-icons">flag</span>
+                    </button>
+                    <button
+                        class="game-button"
+                        id="button-inventory"
+                        title="Open your item inventory"
+                    >
+                        <span class="material-icons">inventory</span>
                     </button>
                 </div>
                 <div id="move-list-container">
@@ -68,28 +78,140 @@
         </div>
     </div>
 
-    <div id="main-modal">
+    <div id="main-modal" class="modal-container">
         <div class="modal-background">
             <div class="modal">
-                <h2 id="modal-title">I'm a Modal</h2>
-                <p id="modal-text">Hear me roar.</p>
-                <svg
-                    class="modal-svg"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="100%"
-                    height="100%"
-                    preserveAspectRatio="none"
-                >
-                    <rect
-                        x="0"
-                        y="0"
-                        fill="none"
-                        width="226"
-                        height="162"
-                        rx="3"
-                        ry="3"
-                    ></rect>
-                </svg>
+                <h2 id="modal-title"></h2>
+                <p id="modal-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="payments-modal" class="modal-container">
+        <div class="modal-background">
+            <div class="modal">
+                <h2 id="modal-title">Select your weapon</h2>
+                <div class="listings-continer">
+                    <div class="listing">
+                        <div class="listing-entry">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/assassination.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Assassination</h4>
+                                <p class="listing-subtitle">
+                                    Remove any piece from the board (except the
+                                    kings)
+                                </p>
+                            </div>
+                            <div class="payment-container">
+                                <p class="price">
+                                    <span class="price-currency">$</span>4.99
+                                </p>
+                                <div id="pp-btn-assassination"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing">
+                        <div class="listing-entry">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/drunk.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Drunk</h4>
+                                <p class="listing-subtitle">
+                                    Your oponent will play a random move on
+                                    their next turn
+                                </p>
+                            </div>
+                            <div class="payment-container">
+                                <p class="price">
+                                    <span class="price-currency">$</span>2.99
+                                </p>
+                                <div id="pp-btn-drunk"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="inventory-modal" class="modal-container">
+        <div id="inventory" class="modal-background">
+            <div class="modal">
+                <h2 id="modal-title">Inventory</h2>
+                <div class="listings-continer">
+                    <div class="inventory-item-wrapper">
+                        <div
+                            class="inventory-item"
+                            data-item-id="assassination"
+                        >
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/assassination.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Assassination</h4>
+                                <p class="listing-subtitle">
+                                    Remove any piece from the board (except the
+                                    kings)
+                                </p>
+                            </div>
+                            <div class="item-count-container">
+                                <p class="item-count">0</p>
+                                <div class="item-use-button-container">
+                                    <button
+                                        id="btn-assassination"
+                                        class="inventory-button"
+                                        disabled
+                                    >
+                                        Use
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing">
+                        <div class="inventory-item" data-item-id="drunk">
+                            <div class="listing-img-container">
+                                <img
+                                    src="/images/weapons/drunk.png"
+                                    alt="Assassination"
+                                />
+                            </div>
+                            <div class="listing-content">
+                                <h4 class="listing-title">Drunk</h4>
+                                <p class="listing-subtitle">
+                                    Your oponent will play a random move on
+                                    their next turn
+                                </p>
+                            </div>
+                            <div class="item-count-container">
+                                <p class="item-count">0</p>
+                                <div class="item-use-button-container">
+                                    <button
+                                        id="btn-drunk"
+                                        class="inventory-button"
+                                        disabled
+                                    >
+                                        Use
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -112,6 +234,4 @@
     </template>
 
     <script src="/js/game/main.js" type="module"></script>
-    <!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AQW7-4J6tGdAA7VhEyAUPKccYoBzWUKubpLh0tQ1nov6Fp6G7kUjss32UoQ6ZRW25BEyJh5Wk0Xw1Zk1&currency=USD"></script>
 </body>

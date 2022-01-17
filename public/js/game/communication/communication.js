@@ -5,6 +5,7 @@ import { handleBoardUpdate } from "/js/game/communication/handlers/boardUpdate.j
 import { handleSetColor } from "/js/game/communication/handlers/setColor.js";
 import { handleMovePiece } from "/js/game/communication/handlers/movePiece.js";
 import { handleSetState } from "/js/game/communication/handlers/setState.js";
+import { handleSetInventory } from "/js/game/communication/handlers/setInventory.js";
 
 export var socket = new WebSocket(WEBSOCKET_URL);
 
@@ -45,6 +46,9 @@ export function initializeSocket() {
                 break;
             case Messages.SET_STATE:
                 handleSetState(message.data);
+                break;
+            case Messages.SET_INVENTORY:
+                handleSetInventory(message.data);
                 break;
             default:
                 console.error("Unknown message type", message.message);

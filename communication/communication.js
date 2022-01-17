@@ -1,5 +1,10 @@
 const { ConnectionManager, GameManager } = require("../game/controller");
-const { Messages, GameAbortedReason, ChessColor } = require("./protodef");
+const {
+    Messages,
+    GameAbortedReason,
+    ChessColor,
+    ItemsEnum,
+} = require("./protodef");
 const logger = require("../logger");
 const handlers = require("./handlers/handlers");
 
@@ -15,6 +20,10 @@ function sendMessage(messageType, payload) {
 function handleConnection(ws) {
     const conn = ws;
     conn.id = ConnectionManager.id++;
+    conn.inventory = Object.values(ItemsEnum).reduce((acc, item) => {
+        acc[item] = 0;
+        return acc;
+    }, {});
     conn.sendMessage = sendMessage;
 
     logger.verbose(`New connection: ${conn.id}`);
@@ -57,6 +66,9 @@ function handleMessage(socket, message) {
             break;
         case Messages.RESIGN:
             handlers.resignHandler(socket, parsedData.data);
+            break;
+        case Messages.REDEEM_PURCHASE:
+            handlers.redeemPurchaseHandler(socket, parsedData.data);
             break;
         default:
             logger.error("Unknown message");

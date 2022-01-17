@@ -9,6 +9,7 @@ const logger = require("../logger");
 const http = require("http");
 const websocket = require("ws");
 const communication = require("../communication/communication");
+const tokens = require("../payments/tokens");
 
 /**
  * Get port from environment and store in Express.
@@ -20,13 +21,18 @@ app.set("port", port);
 var host = process.env.HOST || "localhost";
 app.set("host", host);
 
+tokens.getAccessToken();
+
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
-var ws_server = new websocket.Server({ server });
 
+/**
+ * Create WebSocket server.
+ */
+var ws_server = new websocket.Server({ server });
 ws_server.on("connection", communication.handleConnection);
 
 /**
@@ -66,9 +72,7 @@ function onError(error) {
         throw error;
     }
 
-    var bind = typeof port === "string" ?
-        "Pipe " + port :
-        "Port " + port;
+    var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -91,8 +95,6 @@ function onError(error) {
 
 function onListening() {
     var addr = server.address();
-    var bind = typeof addr === "string" ?
-        "pipe " + addr :
-        "port " + addr.port;
+    var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
     logger.info("Listening on " + bind);
 }

@@ -1,4 +1,4 @@
-#main-modal {
+.modal-container {
     position: fixed;
     display: table;
     height: 100%;
@@ -6,37 +6,48 @@
     top: 0;
     left: 0;
     transform: scale(0);
+}
+
+#main-modal {
+    z-index: 3;
+}
+
+#payments-modal {
+    z-index: 2;
+}
+
+#inventory-modal {
     z-index: 1;
 }
 
-#main-modal.shown {
+.modal-container.shown {
     transform: scale(1);
 }
-#main-modal.shown .modal-background {
+.modal-container.shown .modal-background {
     background: rgba(0, 0, 0, 0);
     animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
-#main-modal.shown .modal-background .modal {
+.modal-container.shown .modal-background .modal {
     transform: translateX(-1500px);
     animation: roadRunnerIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
-#main-modal.shown.hiding {
+.modal-container.shown.hiding {
     animation: quickScaleDown 0s 0.5s linear forwards;
 }
-#main-modal.shown.hiding .modal-background {
+.modal-container.shown.hiding .modal-background {
     animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
-#main-modal.shown.hiding .modal-background .modal {
+.modal-container.shown.hiding .modal-background .modal {
     animation: roadRunnerOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
-#main-modal .modal-background {
+.modal-container .modal-background {
     display: table-cell;
     background: rgba(0, 0, 0, 0.8);
     text-align: center;
     vertical-align: middle;
 }
-#main-modal .modal-background .modal {
+.modal-container .modal-background .modal {
     background: white;
     padding: 50px;
     display: inline-block;
@@ -52,20 +63,6 @@
 #main-modal .modal-background .modal p {
     font-size: 18px;
     line-height: 22px;
-}
-#main-modal .modal-background .modal .modal-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 3px;
-}
-#main-modal .modal-background .modal .modal-svg rect {
-    stroke: #fff;
-    stroke-width: 2px;
-    stroke-dasharray: 778;
-    stroke-dashoffset: 778;
 }
 
 @keyframes fadeIn {
