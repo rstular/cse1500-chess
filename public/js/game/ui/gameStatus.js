@@ -6,6 +6,31 @@ export function updateOpponentNickname(nickname) {
     document.getElementById("").innerText = nickname;
 }
 
+let startCounter = function() {
+    
+    
+    let startTime = new Date();
+
+    // todo stop this when the game stops
+    let timer = setInterval(function () {
+
+        let pad = function (x) {
+            return x.toLocaleString('en-US', {
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            });
+        }
+        
+        let newTime = Math.floor(((new Date()).getTime() - startTime.getTime()) / 1000);
+        
+        let hours = Math.floor(newTime / 3600);
+        let mins = Math.floor((newTime % 3600) / 60);
+        let secs = (newTime % 60);
+
+        document.querySelector('.game-counter').innerHTML = [pad(hours), pad(mins), pad(secs)].join(':');
+    }, 1000);
+}
+
 export function updateGameState(state) {
     document.getElementById("game-status-text").innerText = StateMap[state];
 
@@ -17,6 +42,7 @@ export function updateGameState(state) {
             break;
         case GameState.PLAYING:
             STATUS_CONTAINER.classList.add("playing");
+            startCounter();
             break;
         case GameState.ABORTED:
             STATUS_CONTAINER.classList.add("aborted");
