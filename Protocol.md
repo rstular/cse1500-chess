@@ -1,5 +1,16 @@
 # Messages
 
+## Keep-Alive
+
+Keep the socket alive
+
+```json
+{
+    "message": 0,
+    "data": {}
+}
+```
+
 ## Handshake
 
 Introduce the client to the server. C -> S

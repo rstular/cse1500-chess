@@ -13,6 +13,7 @@ const GameAbortedReason = {
 };
 
 const Messages = {
+    KEEPALIVE: 0,
     HANDSHAKE: 1,
     JOIN_GAME: 2,
     BOARD_UPDATE: 3,

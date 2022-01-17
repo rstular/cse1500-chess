@@ -1,4 +1,4 @@
-import { WEBSOCKET_URL } from "/js/game/config.js";
+import { WEBSOCKET_URL, KEEPALIVE_INTERVAL } from "/js/game/config.js";
 import { Messages } from "/js/game/communication/protodef.js";
 
 import { handleBoardUpdate } from "/js/game/communication/handlers/boardUpdate.js";
@@ -31,6 +31,12 @@ export function initializeSocket() {
     socket.addEventListener("error", (error) => {
         console.error(error);
     });
+
+    setInterval(() => {
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.sendMessage(Messages.KEEPALIVE, {});
+        }
+    }, KEEPALIVE_INTERVAL);
 
     socket.addEventListener("message", (event) => {
         console.log(event.data);

@@ -58,6 +58,9 @@ function handleMessage(socket, message) {
     }
 
     switch (parsedData.message) {
+        case Messages.KEEPALIVE:
+            handlers.keepaliveHandler(socket, parsedData.data);
+            break;
         case Messages.HANDSHAKE:
             handlers.handshakeHandler(socket, parsedData.data);
             break;

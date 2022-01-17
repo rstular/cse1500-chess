@@ -4,6 +4,7 @@ const movePieceHandler = require("./movePiece");
 const resignHandler = require("./resign");
 const redeemPurchaseHandler = require("./redeemPurchase");
 const useItemHandler = require("./useItem");
+const keepaliveHandler = require("./keepalive");
 
 module.exports = {
     handshakeHandler,
@@ -12,4 +13,5 @@ module.exports = {
     resignHandler,
     redeemPurchaseHandler,
     useItemHandler,
+    keepaliveHandler,
 };
