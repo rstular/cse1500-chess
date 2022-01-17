@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/game/board.css" />
     <link rel="stylesheet" href="/stylesheets/game/game-status.css" />
     <link rel="stylesheet" href="/stylesheets/game/modal.css" />
+    <link rel="stylesheet" href="/stylesheets/screencheck.css" />
     <link rel="stylesheet" href="/stylesheets/game/inventory.css" />
     <link
         rel="stylesheet"
@@ -37,8 +38,7 @@
                         <span id="opponent-nickname">N/A</span>
                     </p>
                 </div>
-                <div id="misc-status">
-                </div>
+                <div id="misc-status"></div>
                 <div class="button-group">
                     <button
                         class="game-button"
@@ -73,8 +73,9 @@
 
             <div id="game-status" class="waiting-for-players">
                 <p>
-                    Game status:
+                    Status:
                     <span id="game-status-text">Waiting for players</span>
+                    <span id="game-counter"></span>
                 </p>
             </div>
         </div>

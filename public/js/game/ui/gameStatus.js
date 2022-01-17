@@ -10,6 +10,40 @@ export function updateOpponentNickname(nickname) {
     document.getElementById("opponent-nickname").innerText = nickname;
 }
 
+export function Timer(elementToUpdate, prefix = "", suffix = "") {
+    this.prefix = prefix;
+    this.suffix = suffix;
+    this.element = elementToUpdate;
+    this.start = function () {
+        this.startTime = new Date();
+        this.timer = setInterval(this.update.bind(this), 1000);
+    };
+    this.stop = function () {
+        if (this.timer) clearInterval(this.timer);
+    };
+    this.getElapsed = function () {
+        return Math.floor((new Date() - this.startTime) / 1000);
+    };
+    this.update = function () {
+        let newTime = this.getElapsed();
+        let hours = Math.floor(newTime / 3600);
+        let mins = Math.floor((newTime % 3600) / 60);
+        let secs = newTime % 60;
+        this.element.innerText =
+            this.prefix +
+            [this.pad(hours), this.pad(mins), this.pad(secs)].join(":") +
+            this.suffix;
+    };
+    this.pad = function (x) {
+        return x.toLocaleString("en-US", {
+            minimumIntegerDigits: 2,
+            useGrouping: false,
+        });
+    };
+}
+
+const gameTimer = new Timer(document.getElementById("game-counter"), " (", ")");
+
 export function setMiscText(text) {
     document.getElementById("misc-status").innerText = text;
 }
@@ -43,7 +77,9 @@ export function updateGameState(state) {
     if (state === GameState.PLAYING) {
         enableResignButton();
         enableInventoryUse();
+        gameTimer.start();
     } else {
+        gameTimer.stop();
         disableResignButton();
         disableInventoryUse();
     }

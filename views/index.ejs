@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><%= title %></title>
         <link rel="stylesheet" href="/stylesheets/splash.css" />
+        <link rel="stylesheet" href="/stylesheets/screencheck.css" />
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons"
@@ -13,25 +14,20 @@
     </head>
 
     <body>
-        <nav>
-            <ul class="nav-container">
-                <li class="nav-element">
-                    <div>
-                        <p>
-                            <%= players_online %> players currently online, <%=
-                            active_games %> games in progress.
-                        </p>
-                    </div>
-                    >
-                </li>
-                <li class="nav-element nav-element-right">
-                    <div>
-                        <p>About</p>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+        <div id="player-sidebar" class="sidebar-left">
+                <div class="sidebar-title">
+                    <%= players.length %>
+                </div>
+                <% players.forEach(function (player) { %>
+                    <div class="player"><%= player %></div>
+                <% }); %>
+        </div>
 
+        <div id="stats-div" class="stats-div">
+            <span>Games played in total: <%= nGamesPlayed %></span><br>
+            <span>Money spent in total:  $<%= amountSpent %></span>
+        </div>
+    
         <div class="hero-image">
             <div class="hero-content">
                 <h1>Pay-to-win Chess</h1>
@@ -52,6 +48,10 @@
                 <button id="join-game-button" class="button button-primary">
                     <span>Join a game</span>
                 </button>
+                <br>
+                <label for="join-game-button" class="join-button-label">
+                    <a id="rules-modal-link" href='#'>Rules</a>
+                </label>
                 <!-- <button class="button button-secondary"><span>Host a private game</span></button> -->
             </div>
         </div>

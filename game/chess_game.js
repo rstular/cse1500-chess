@@ -166,6 +166,7 @@ class ChessGame {
                         : GameState.WON_WHITE
                 );
             }
+            GameManager.nGamesCompleted++;
         }
     }
 }

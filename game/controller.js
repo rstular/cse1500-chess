@@ -2,6 +2,7 @@ const GameManager = {
     id: 0,
     connectionGameMap: {},
     games: [],
+    nGamesCompleted: 0,
     getGame(connectionId) {
         return this.connectionGameMap[connectionId];
     },
@@ -20,6 +21,13 @@ const ConnectionManager = {
             throw new Error("Invalid connection");
         }
         this.connections[conn.id] = conn;
+    },
+    getPlayerList: function () {
+        let result = [];
+        for (const key in this.connections) {
+            result.push(this.connections[key].nickname);
+        }
+        return result;
     }
 }
 
