@@ -55,13 +55,13 @@ export const Items = {
     [ItemsEnum.Assassination]: {
         id: ItemsEnum.Assassination,
         name: "Balthazar's Assassination",
-        description: "Remove a piece from the board",
+        description: "Remove any piece from the board (except kings). Especially effective when it comes to outlaws.",
         price: 4.99,
     },
     [ItemsEnum.Drunk]: {
         id: ItemsEnum.Drunk,
-        name: "Drunk",
-        description: "The opponent will play a random move",
+        name: "Willem's Bottle",
+        description: "The opponent will play a random move after consuming vast amounts of 100-proof gin, straight from the Royal cellar!",
         price: 2.99,
     },
     [ItemsEnum.Donderslag]: {
