@@ -12,16 +12,17 @@ import { doAssassination } from "/js/game/ui/inventory.js";
 export function playMoveSound(move_flags) {
     if (gameInfo.board.in_checkmate()) {
         sounds.checkmate.play();
-    } else if (gameInfo.board.in_stalemate()) {
-        sounds.draw.play();
-    } else if (gameInfo.board.insufficient_material()) {
-        sounds.draw.play();
-    } else if (gameInfo.board.in_threefold_repetition()) {
-        sounds.draw.play();
-    } else if (gameInfo.board.in_draw()) {
+    } else if (
+        gameInfo.board.in_stalemate() ||
+        gameInfo.board.insufficient_material() ||
+        gameInfo.board.in_threefold_repetition() ||
+        gameInfo.board.in_draw()
+    ) {
         sounds.draw.play();
     } else if (gameInfo.board.in_check()) {
         sounds.check.play();
+    } else if (move_flags.includes("p")) {
+        sounds.promotion.play();
     } else if (move_flags.includes("c") || move_flags.includes("e")) {
         sounds.capture.play();
     } else {

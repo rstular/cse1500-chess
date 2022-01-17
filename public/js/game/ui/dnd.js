@@ -1,8 +1,12 @@
 import { sounds } from "/js/game/audio.js";
 import { gameInfo } from "/js/game/chessController.js";
 import { socket } from "/js/game/communication/communication.js";
-import { GameState, Messages } from "/js/game/communication/protodef.js";
-import { getElementLabel, playMoveSound } from "/js/game/ui/board.js";
+import {
+    GameState,
+    Messages,
+    ChessPieceType,
+} from "/js/game/communication/protodef.js";
+import { getElementLabel, playMoveSound, updateBoard } from "/js/game/ui/board.js";
 import { addMove } from "/js/game/ui/gameStatus.js";
 import { showModalWithContent } from "/js/game/ui/modal.js";
 import { updateTurnText } from "/js/game/ui/gameStatus.js";
@@ -60,21 +64,31 @@ export function squarePieceDrop(e) {
         const moveObject = {
             from: dragFrom,
             to: dragTo,
+            promotion: ChessPieceType.QUEEN, // Promote to queen by default
         };
         const moveWithInfo = gameInfo.board.move(moveObject);
+        // Check if move is valid
         if (moveWithInfo == null) {
             sounds.invalid.play();
             return;
         }
+        // Perform the DnD
+        e.currentTarget.replaceChildren(SOURCE_ELEMENT);
+        // If we promoted, re-render the board
+        if (moveWithInfo.flags.includes("p")) {
+            updateBoard(gameInfo.board.board());
+        }
 
+        // Update the interface
         disableInventoryUse();
         updateTurnText();
-
+        
+        // Send the move to the server
         console.debug("Sending move", moveWithInfo);
         socket.sendMessage(Messages.MOVE_PIECE, moveObject);
 
+        // Play the move sound
         playMoveSound(moveWithInfo.flags);
-        e.currentTarget.replaceChildren(SOURCE_ELEMENT);
 
         addMove(moveWithInfo.san);
         if (gameInfo.board.game_over()) {

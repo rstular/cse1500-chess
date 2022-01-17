@@ -9,4 +9,5 @@ export const sounds = {
     drunk: new Audio("/audio/drunk.mp3"),
     explosion: new Audio("/audio/explosion.mp3"),
     assassination: new Audio("/audio/assassination.mp3"),
+    promotion: new Audio("/audio/promotion.mp3"),
 };

@@ -21,17 +21,4 @@ export function handleMovePiece(move_object) {
     updateBoard(gameInfo.board.board());
     
     addMove(move_object.san);
-    // if (gameInfo.board.game_over()) {
-    //     if (gameInfo.board.in_checkmate()) {
-    //         showModalWithContent("Checkmate", "Checkmate!");
-    //     } else if (gameInfo.board.in_stalemate()) {
-    //         showModalWithContent("Stalemate", "Stalemate!");
-    //     } else if (gameInfo.board.insufficient_material()) {
-    //         showModalWithContent("Draw", "Draw!");
-    //     } else if (gameInfo.board.in_threefold_repetition()) {
-    //         showModalWithContent("Draw", "Draw!");
-    //     } else if (gameInfo.board.in_draw()) {
-    //         showModalWithContent("Draw", "Draw!");
-    //     }
-    // }
 }

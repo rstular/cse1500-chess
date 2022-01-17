@@ -28,7 +28,7 @@ nav {
     float: right;
 }
 
-.nav-element>div {
+.nav-element > div {
     display: block;
     color: white;
     text-align: center;
@@ -38,14 +38,14 @@ nav {
 
 .hero-image {
     z-index: 1;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/splash/hero-bg.webp");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("/images/splash/hero-bg.webp");
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    transition: margin-left .5s;
-    padding: 16px;
+    transition: margin-left 0.5s;
 }
 
 .hero-content {
@@ -71,7 +71,7 @@ h2 {
     border-radius: 4px;
     border: none;
     background-color: #f4511e;
-    color: #FFFFFF;
+    color: #ffffff;
     text-align: center;
     font-size: 20px;
     padding: 20px;
@@ -159,7 +159,10 @@ h2 {
     z-index: 1;
     overflow-x: hidden;
     transition: 0.5s;
-    background-image: linear-gradient(rgba(21, 58, 49, 0.9),rgba(88, 123, 65, 0.8) );
+    background-image: linear-gradient(
+        rgba(21, 58, 49, 0.9),
+        rgba(88, 123, 65, 0.8)
+    );
     counter-reset: player;
     color: white;
     border-right: 2px solid;
@@ -171,7 +174,7 @@ h2 {
 
 .player::before {
     counter-increment: player;
-    content: counter(player) ". "
+    content: counter(player) ". ";
 }
 
 .sidebar-title {
