@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 var { GameManager, ConnectionManager } = require("../game/controller");
+var PaymentDatabase = require("../payments/paymentDatabase");
 var protodef = require("../communication/protodef");
 
 /* GET home page. */
@@ -9,9 +10,7 @@ router.get("/", function (req, res, next) {
         title: "Best chess ever",
         players: ConnectionManager.getPlayerList(),
         nGamesPlayed: GameManager.nGamesCompleted,
-        active_games: GameManager.games.filter(
-            (game) => game.state === protodef.GameState.PLAYING
-        ).length,
+        amountSpent: PaymentDatabase.moneySpent
     });
 });
 
