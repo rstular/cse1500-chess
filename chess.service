@@ -1,0 +1,14 @@
+[Unit]
+Description=Chess server
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Group=nobody
+WorkingDirectory=/srv/services/cse1500-chess
+ExecStart=/usr/bin/node /srv/services/cse1500-chess/bin/www
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
