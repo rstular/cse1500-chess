@@ -15,8 +15,10 @@ function resignHandler(socket, _data) {
 
     if (game.playerWhite == socket) {
         game.setState(GameState.WON_BLACK);
+        GameManager.nGamesCompleted++;
     } else if (game.playerBlack == socket) {
         game.setState(GameState.WON_WHITE);
+        GameManager.nGamesCompleted++;
     } else {
         console.error(`Player not found for socket ${socket.id}`);
     }

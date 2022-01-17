@@ -126,6 +126,7 @@ class ChessGame {
         };
 
         this.setState(GameState.ABORTED, abortInfo);
+        GameManager.nGamesCompleted++;
     }
 
     setState(state, stateInfo = {}) {
