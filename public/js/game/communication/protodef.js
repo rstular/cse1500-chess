@@ -54,7 +54,7 @@ export const ItemsEnum = {
 export const Items = {
     [ItemsEnum.Assassination]: {
         id: ItemsEnum.Assassination,
-        name: "Assassination",
+        name: "Balthazar's Assassination",
         description: "Remove a piece from the board",
         price: 4.99,
     },
