@@ -36,7 +36,6 @@ function initializeModal() {
     document.querySelectorAll(".modal").forEach((modal) => {
         modal.addEventListener("click", (e) => {
             e.stopPropagation();
-            e.preventDefault();
         });
     });
 
