@@ -4,6 +4,7 @@ const {
     GameAbortedReason,
     ChessColor,
     ItemsEnum,
+    GameState,
 } = require("./protodef");
 const logger = require("../logger");
 const handlers = require("./handlers/handlers");
