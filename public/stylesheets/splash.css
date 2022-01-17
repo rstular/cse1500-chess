@@ -187,3 +187,11 @@ h2 {
 .join-button-label a:active {
     color: yellow;
 }
+
+.stats-div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    z-index: 2;
+}

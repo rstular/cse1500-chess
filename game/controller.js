@@ -2,6 +2,7 @@ const GameManager = {
     id: 0,
     connectionGameMap: {},
     games: [],
+    nGamesCompleted: 0,
     getGame(connectionId) {
         return this.connectionGameMap[connectionId];
     },

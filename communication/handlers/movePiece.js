@@ -42,6 +42,7 @@ function handleMovePiece(socket, data) {
                     : protodef.GameState.WON_WHITE
             );
         }
+        GameManager.nGamesCompleted++;
     }
 }
 

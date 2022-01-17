@@ -8,6 +8,7 @@ router.get("/", function (req, res, next) {
     res.render("index", {
         title: "Best chess ever",
         players: ConnectionManager.getPlayerList(),
+        nGamesPlayed: GameManager.nGamesCompleted,
         active_games: GameManager.games.filter(
             (game) => game.state === protodef.GameState.PLAYING
         ).length,
