@@ -101,4 +101,5 @@ function initializePayPalButton(productName, elementId) {
 export function initializePayPal() {
     initializePayPalButton(ItemsEnum.Assassination, "#pp-btn-assassination");
     initializePayPalButton(ItemsEnum.Drunk, "#pp-btn-drunk");
+    initializePayPalButton(ItemsEnum.Donderslag, "#pp-btn-donderslag");
 }

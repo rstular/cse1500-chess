@@ -48,6 +48,7 @@ export const ChessPieceType = {
 export const ItemsEnum = {
     Assassination: "assassination",
     Drunk: "drunk",
+    Donderslag: "donderslag",
 };
 
 export const Items = {
@@ -62,5 +63,11 @@ export const Items = {
         name: "Drunk",
         description: "The opponent will play a random move",
         price: 2.99,
+    },
+    [ItemsEnum.Donderslag]: {
+        id: ItemsEnum.Donderslag,
+        name: "Delftse Donderslag",
+        description: "Those who know, know.",
+        price: 1654.0,
     },
 };

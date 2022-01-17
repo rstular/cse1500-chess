@@ -2,6 +2,7 @@ const {
     GameState,
     ItemsEnum,
     ChessColor,
+    Messages,
 } = require("../../communication/protodef");
 const { GameManager } = require("../../game/controller");
 const logger = require("../../logger");
@@ -44,6 +45,29 @@ function useItemHandler(socket, { item, itemData }) {
             game.queuedEvents.black.push({ type: ItemsEnum.Drunk });
         } else {
             game.queuedEvents.white.push({ type: ItemsEnum.Drunk });
+        }
+    } else if (item === ItemsEnum.Donderslag) {
+        logger.debug("Donderslag");
+        game.playerBlack.sendMessage(Messages.USE_ITEM, {
+            item: item,
+            itemData: {},
+        });
+        game.playerWhite.sendMessage(Messages.USE_ITEM, {
+            item: item,
+            itemData: {},
+        });
+        if (game.playerWhite === socket) {
+            game.setState(GameState.WON_WHITE, {
+                messageWhite:
+                    "How lucky! A lightning strike blew your oponent's gunpowder up!",
+                messageBlack: "Oh no! A lightning strike blew you up!",
+            });
+        } else {
+            game.setState(GameState.WON_BLACK, {
+                messageBlack:
+                    "How lucky! A lightning strike blew your oponent's gunpowder up!",
+                messageWhite: "Oh no! A lightning strike blew you up!",
+            });
         }
     }
 }

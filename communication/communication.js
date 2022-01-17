@@ -9,6 +9,8 @@ const logger = require("../logger");
 const handlers = require("./handlers/handlers");
 
 function sendMessage(messageType, payload) {
+    logger.debug(`Sending message ${messageType}`);
+    console.log(payload);
     this.send(
         JSON.stringify({
             message: messageType,

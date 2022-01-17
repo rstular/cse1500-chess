@@ -53,12 +53,16 @@ export function handleSetState({ state, stateInfo }) {
     } else if (state === GameState.WON_WHITE) {
         showModalWithContent(
             "Game over",
-            gameInfo.playerColor === ChessColor.WHITE ? "You won!" : "You lost!"
+            gameInfo.playerColor === ChessColor.WHITE
+                ? stateInfo.messageWhite || "You won!"
+                : stateInfo.messageBlack || "You lost!"
         );
     } else if (state === GameState.WON_BLACK) {
         showModalWithContent(
             "Game over",
-            gameInfo.playerColor === ChessColor.BLACK ? "You won!" : "You lost!"
+            gameInfo.playerColor === ChessColor.BLACK
+                ? stateInfo.messageBlack || "You won!"
+                : stateInfo.messageWhite || "You lost!"
         );
     }
 }

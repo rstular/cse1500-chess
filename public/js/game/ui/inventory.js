@@ -75,6 +75,16 @@ function handleButtonClick(itemId) {
             updateInventoryCount();
             recomputeButtons();
             break;
+        case ItemsEnum.Donderslag:
+            gameInfo.inventory[itemId]--;
+            socket.sendMessage(Messages.USE_ITEM, {
+                item: itemId,
+                itemData: {},
+            });
+            sounds.explosion.play();
+            updateInventoryCount();
+            recomputeButtons();
+            break;
         default:
             sounds.invalid.play();
             console.error("Unhandled item ID:", itemId);
@@ -90,4 +100,7 @@ export function registerButtonHandlers() {
         .addEventListener("click", () => {
             handleButtonClick(ItemsEnum.Assassination);
         });
+    document.getElementById("btn-donderslag").addEventListener("click", () => {
+        handleButtonClick(ItemsEnum.Donderslag);
+    });
 }
