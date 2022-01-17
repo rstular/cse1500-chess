@@ -1,13 +1,3 @@
-.modal-container {
-    position: fixed;
-    display: table;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    transform: scale(0);
-}
-
 #main-modal {
     z-index: 10;
 }
@@ -16,57 +6,6 @@
     max-width: 60%;
 }
 
-.modal-container.shown {
-    transform: scale(1);
-}
-.modal-container.shown .modal-background {
-    background: rgba(0, 0, 0, 0);
-    animation-name: fadeIn;
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-fill-mode: forwards;
-}
-.modal-container.shown .modal-background .modal {
-    transform: translateX(-1500px);
-    animation-name: roadRunnerIn;
-    animation-duration: 0.3s;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-fill-mode: forwards;
-}
-.modal-container.shown.hiding {
-    animation-name: quickScaleDown;
-    animation-duration: 0s;
-    animation-delay: 0.5s;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-}
-.modal-container.shown.hiding .modal-background {
-    animation-name: fadeOut;
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-fill-mode: forwards;
-}
-.modal-container.shown.hiding .modal-background .modal {
-    animation-name: roadRunnerOut;
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-fill-mode: forwards;
-}
-
-.modal-container .modal-background {
-    display: table-cell;
-    background: rgba(0, 0, 0, 0.8);
-    text-align: center;
-    vertical-align: middle;
-}
-.modal-container .modal-background .modal {
-    background: white;
-    padding: 50px;
-    display: inline-block;
-    border-radius: 3px;
-    font-weight: 300;
-    position: relative;
-}
 #main-modal .modal-background .modal h2 {
     font-size: 25px;
     line-height: 25px;
@@ -75,54 +14,4 @@
 #main-modal .modal-background .modal p {
     font-size: 18px;
     line-height: 22px;
-}
-
-@keyframes fadeIn {
-    0% {
-        background: rgba(0, 0, 0, 0);
-    }
-    100% {
-        background: rgba(0, 0, 0, 0.7);
-    }
-}
-@keyframes fadeOut {
-    0% {
-        background: rgba(0, 0, 0, 0.7);
-    }
-    100% {
-        background: rgba(0, 0, 0, 0);
-    }
-}
-@keyframes quickScaleDown {
-    0% {
-        transform: scale(1);
-    }
-    99.9% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(0);
-    }
-}
-@keyframes roadRunnerIn {
-    0% {
-        transform: translateX(-1500px) skewX(30deg) scaleX(1.3);
-    }
-    70% {
-        transform: translateX(30px) skewX(0deg) scaleX(0.9);
-    }
-    100% {
-        transform: translateX(0px) skewX(0deg) scaleX(1);
-    }
-}
-@keyframes roadRunnerOut {
-    0% {
-        transform: translateX(0px) skewX(0deg) scaleX(1);
-    }
-    30% {
-        transform: translateX(-30px) skewX(-5deg) scaleX(0.9);
-    }
-    100% {
-        transform: translateX(1500px) skewX(30deg) scaleX(1.3);
-    }
 }
