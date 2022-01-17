@@ -70,6 +70,9 @@ function handleMessage(socket, message) {
         case Messages.REDEEM_PURCHASE:
             handlers.redeemPurchaseHandler(socket, parsedData.data);
             break;
+        case Messages.USE_ITEM:
+            handlers.useItemHandler(socket, parsedData.data);
+            break;
         default:
             logger.error("Unknown message");
     }

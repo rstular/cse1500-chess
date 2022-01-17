@@ -1,6 +1,7 @@
 import { ItemsEnum } from "/js/game/communication/protodef.js";
 import { showModalWithContent } from "/js/game/ui/modal.js";
 import { redeemItems } from "/js/game/ui/inventory.js";
+import { sounds } from "/js/game/audio.js";
 
 const BUTTON_STYLE = {
     layout: "vertical",
@@ -80,6 +81,7 @@ function initializePayPalButton(productName, elementId) {
                             orderData,
                             JSON.stringify(orderData, null, 2)
                         );
+                        sounds.money.play();
                         showModalWithContent(
                             "Payment successful",
                             "Transaction successful!\n\nYour items will be delivered to you shortly."

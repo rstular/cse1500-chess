@@ -3,7 +3,9 @@ import { socket } from "/js/game/communication/communication.js";
 import { gameInfo } from "/js/game/chessController.js";
 import { sounds } from "/js/game/audio.js";
 
-var buttonsDisabled = true;
+export const inventoryInfo = {
+    buttonsDisabled: true,
+};
 
 export function updateInventoryCount() {
     const inventory = document.getElementById("inventory");
@@ -26,7 +28,7 @@ export function recomputeButtons() {
     for (const item of inventoryItems) {
         const itemId = item.getAttribute("data-item-id");
         const itemCount = gameInfo.inventory[itemId];
-        if (itemCount > 0 || buttonsDisabled) {
+        if (itemCount > 0 && !inventoryInfo.buttonsDisabled) {
             item.querySelector(".inventory-button").disabled = false;
         } else {
             item.querySelector(".inventory-button").disabled = true;
@@ -35,12 +37,12 @@ export function recomputeButtons() {
 }
 
 export function enableInventoryUse() {
-    buttonsDisabled = false;
+    inventoryInfo.buttonsDisabled = false;
     recomputeButtons();
 }
 
 export function disableInventoryUse() {
-    buttonsDisabled = true;
+    inventoryInfo.buttonsDisabled = true;
     const buttons = document.querySelectorAll(".inventory-button");
     for (const button of buttons) {
         button.disabled = true;

@@ -13,7 +13,7 @@ function useItemHandler(socket, { item, itemData }) {
         return;
     }
 
-    if (game.state !== protodef.GameState.PLAYING) {
+    if (game.state !== GameState.PLAYING) {
         logger.debug(`Game ${game.gameId} is not in PLAYING state`);
         delete GameManager.connectionGameMap[socket.id];
         delete ConnectionManager.connections[socket.id];
@@ -41,9 +41,9 @@ function useItemHandler(socket, { item, itemData }) {
         logger.debug("Enqueuing " + item);
         socket.inventory[ItemsEnum.Drunk]--;
         if (game.playerWhite === socket) {
-            game.queuedEvents.black.push(ItemsEnum.Drunk);
+            game.queuedEvents.black.push({ type: ItemsEnum.Drunk });
         } else {
-            game.queuedEvents.white.push(ItemsEnum.Drunk);
+            game.queuedEvents.white.push({ type: ItemsEnum.Drunk });
         }
     }
 }

@@ -3,6 +3,7 @@ const joinGameHandler = require("./joinGame");
 const movePieceHandler = require("./movePiece");
 const resignHandler = require("./resign");
 const redeemPurchaseHandler = require("./redeemPurchase");
+const useItemHandler = require("./useItem");
 
 module.exports = {
     handshakeHandler,
@@ -10,4 +11,5 @@ module.exports = {
     movePieceHandler,
     resignHandler,
     redeemPurchaseHandler,
+    useItemHandler,
 };
