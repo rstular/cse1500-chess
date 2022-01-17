@@ -35,7 +35,7 @@ function handleConnection(ws) {
     });
     conn.on("close", () => {
         let game = GameManager.getGame(conn.id);
-        if (game) {
+        if (game && game.state === GameState.PLAYING) {
             game.abort(GameAbortedReason.PLAYER_DISCONNECTED, ChessColor.NONE);
         }
         game.removePlayer(conn);
