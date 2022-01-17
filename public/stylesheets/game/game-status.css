@@ -89,7 +89,7 @@
     color: white;
     display: flex;
     flex-direction: column;
-    max-height: calc(100% - 100px);
+    max-height: calc(100% - 140px);
 }
 
 #move-list-wrapper {
