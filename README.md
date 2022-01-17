@@ -5,6 +5,7 @@ We decided to create pay-to-win chess, an exciting twist on the age-old game wit
 All the items have a historical Delftse twist to them - see if you can find the references!
 
 ## Setup instructions
+
 You will need a valid PayPal Client ID/Secret pair in order to set up a local instance of Pay-to-win chess. You can generate your own on https://developer.paypal.com/ by creating a sandbox app, after which you can fill the environment variables `PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET` respectively. See the `.env.*` files for an example `.env` file.
 
 You can use the sandbox credentials provided to you on the paypal dashboard (the email should have the format `{{username}}@personal.example.com`) in order to make fake purchases in the testing environment.
