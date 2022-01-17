@@ -2,7 +2,6 @@ import { enableInventoryUse } from "/js/game/ui/inventory.js";
 import { gameInfo } from "/js/game/chessController.js";
 import { playMoveSound, updateBoard } from "/js/game/ui/board.js";
 import { addMove } from "/js/game/ui/gameStatus.js";
-import { showModalWithContent } from "/js/game/ui/modal.js";
 import { updateTurnText } from "/js/game/ui/gameStatus.js";
 
 export function handleMovePiece(move_object) {
