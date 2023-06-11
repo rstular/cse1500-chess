@@ -19,8 +19,13 @@ function captureOrder(orderId, responseObject) {
     };
 
     const req = https.request(options, (res) => {
+        let body = [];
         res.on("data", (d) => {
-            let data = JSON.parse(new TextDecoder().decode(d));
+            body.push(d);
+        });
+
+        res.on("end", () => {
+            let data = JSON.parse(Buffer.concat(body).toString());
             logger.debug(`Captured PayPal order ID ${data.id}`);
             const toRespond = {
                 id: data.id,
